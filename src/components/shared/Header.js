@@ -20,6 +20,8 @@ import AccountCircle from '@mui/icons-material/AccountCircle';
 import MailIcon from '@mui/icons-material/Mail';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import MoreIcon from '@mui/icons-material/MoreVert';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import Logout from '@mui/icons-material/Logout';
 
 const profileLinkStyle = {
 	color: 'black',
@@ -31,7 +33,7 @@ const authenticatedOptions = [
 		Change Password
 	</Link>,
 	<Link to='sign-out' style={profileLinkStyle}>
-		Sign Out
+		Logout
 	</Link>
 ]
 
@@ -217,9 +219,9 @@ export default function Header({ user }) {
 
 	return (
 		<Box sx={{ flexGrow: 1 }}>
-			<AppBar position="static">
+			<AppBar position="static" color='transparent'>
 				<Toolbar>
-					<IconButton
+					{/* <IconButton
 						size="large"
 						edge="start"
 						color="inherit"
@@ -227,7 +229,7 @@ export default function Header({ user }) {
 						sx={{ mr: 2 }}
 					>
 						<MenuIcon />
-					</IconButton>
+					</IconButton> */}
 					<Typography
 						variant="h6"
 						noWrap
@@ -236,12 +238,12 @@ export default function Header({ user }) {
 					>
 						MUI
 					</Typography>
-					<Search>
+					<Search style={{width: '500px'}}>
 						<SearchIconWrapper>
 							<SearchIcon />
 						</SearchIconWrapper>
 						<StyledInputBase
-							placeholder="Search…"
+							placeholder="Search a zip code…"
 							inputProps={{ 'aria-label': 'search' }}
 						/>
 					</Search>

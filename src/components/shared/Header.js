@@ -219,7 +219,7 @@ export default function Header({ user }) {
 
 	return (
 		<Box sx={{ flexGrow: 1 }}>
-			<AppBar position="static" style={{backgroundColor: 'rgba(10, 10, 10, 0.67)'}}>
+			<AppBar position="static" style={{backgroundColor: 'rgba(10, 10, 10, 0.5)'}}>
 				<Toolbar>
 					{/* <IconButton
 						size="large"

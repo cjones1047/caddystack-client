@@ -14,6 +14,7 @@ import SignUp from './components/auth/SignUp'
 import SignIn from './components/auth/SignIn'
 import SignOut from './components/auth/SignOut'
 import ChangePassword from './components/auth/ChangePassword'
+import FindCourse from './components/courses/FindCourse'
 
 const App = () => {
 
@@ -50,6 +51,15 @@ const App = () => {
 					path='/' 
 					element={
 						<Home 
+							msgAlert={msgAlert} 
+							user={user} 
+						/>
+					} 
+				/>
+				<Route 
+					path='/find-a-course' 
+					element={
+						<FindCourse 
 							msgAlert={msgAlert} 
 							user={user} 
 						/>

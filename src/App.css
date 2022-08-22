@@ -25,7 +25,3 @@ body:after{
         background-size: cover;
     }
 }
-
-.MuiAppBar-colorTransparent {
-    background-color: aqua;
-}

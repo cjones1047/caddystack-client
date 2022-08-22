@@ -1,3 +1,11 @@
+.appbarButton {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+}
+
 .appbarButton:hover {
-    color: rgb(87, 176, 63)
+    color: rgb(87, 176, 63);
+    text-decoration: none;
+    font-weight: bold;
 }

@@ -347,7 +347,7 @@ const Header = ({ user }) => {
 
 	return (
 		<AppBar position="static" style={{backgroundColor: 'rgba(10, 10, 10, 0.7)'}}>
-			<Container maxWidth="xl">
+			<Container maxWidth="">
 				<Toolbar disableGutters>
 					<AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
 					<Typography
@@ -364,7 +364,7 @@ const Header = ({ user }) => {
 							textDecoration: 'none',
 						}}
 					>
-						LOGO
+						TITLE
 					</Typography>
 
 					<Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
@@ -443,7 +443,7 @@ const Header = ({ user }) => {
 							textDecoration: 'none',
 						}}
 					>
-						LOGO
+						TITLE
 					</Typography>
 					<Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
 						{pages.map((page, i) => {
@@ -451,13 +451,14 @@ const Header = ({ user }) => {
 							const pageLink = page.link
 							return (
 								<Button
-									className="appbarButton"
 									key={i}
-									href={pageLink}
+									className="appbarButton"
 									onClick={handleCloseNavMenu}
 									sx={{ my: 2, color: 'white', display: 'block' }}
 								>
-									{pageStr}
+									<Link className="appbarButton" to={pageLink}>
+										{pageStr}
+									</Link>
 								</Button>
 							)
 						})}

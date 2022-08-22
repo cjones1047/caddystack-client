@@ -1,0 +1,25 @@
+.find-course-form-container {
+    margin-top: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#find-course-form:hover {
+    cursor: pointer;
+}
+
+#find-course-form {
+    color: white;
+    font-size: 20px;
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+#find-course-zip-field {
+    color: white;
+}
+
+/* #find-course-zip-field:focus {
+    color: white;
+} */

@@ -7,8 +7,6 @@ import TextField from '@mui/material/TextField';
 import { List, ListItem, ListItemText, Divider } from '@mui/material';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
-require('dotenv').config()
-
 const theme = createTheme({
     status: {
         danger: '#e53e3e',
@@ -25,17 +23,24 @@ const theme = createTheme({
     },
 });
 
-
-
 const FindCourse = (props) => {
-	// const { msgAlert, user } = props
+	const { msgAlert, user, setCourseToShow } = props
 	// console.log('props in FindCourse:', props)
 
     const [searchedZip, setSearchedZip] = useState('')
     const [searchedCourseList, setSearchedCourseList] = useState('')
 
+    const handleCourseClick = (e, courseName, courseZip) => {
+        e.preventDefault()
+
+        console.log('Name of course: ', courseName)
+        console.log('Zip of course: ', courseZip)
+    }
+
     const handleZipSubmit = (e) => {
         e.preventDefault()
+
+        console.log('Zip in searchedZip state: ', searchedZip)
         
         const apiKey = process.env.REACT_APP_RAPIDAPI_API_KEY
 
@@ -78,9 +83,15 @@ const FindCourse = (props) => {
                         const courses = res.data.courses.map((course, i) => {
                             return (
 
-                                <ListItem key={i} button divider>
-                                    <Divider />
-                                    <ListItemText primary={course.name} />
+                                <ListItem 
+                                    key={i} 
+                                    button 
+                                    divider
+                                    onClick={(e) => handleCourseClick(e, course.name, course.zip_code)}
+                                    >
+                                    <ListItemText 
+                                        primary={course.name} 
+                                        secondary={`${course.distance} miles`} />
                                     {/* <form style={display: 'none'}>
 
                                     </form> */}

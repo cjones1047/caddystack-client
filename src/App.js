@@ -65,7 +65,7 @@ const App = () => {
 						<FindCourse 
 							msgAlert={msgAlert} 
 							user={user}
-							
+							setCourseToShow={setCourseToShow}
 						/>
 					} 
 				/>

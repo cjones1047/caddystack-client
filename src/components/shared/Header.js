@@ -124,6 +124,8 @@ const Header = ({ user }) => {
 									<MenuItem 
 										key={i}
 										onClick={handleCloseNavMenu}
+										divider
+										style={{width: '50vw'}}
 										>
 											<Typography textAlign="center">
 												<Link to={pageLink} style={profileLinkStyle}>

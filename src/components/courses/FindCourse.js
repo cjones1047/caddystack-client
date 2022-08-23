@@ -34,6 +34,7 @@ const FindCourse = (props) => {
 	// console.log('props in FindCourse:', props)
 
     const [searchedZip, setSearchedZip] = useState('')
+    const [searchedCourseList, setSearchedCourseList] = useState([])
 
     const handleZipSubmit = (e) => {
         e.preventDefault()
@@ -64,15 +65,6 @@ const FindCourse = (props) => {
                 const longtitude = res.data[0].lon
                 console.log('latitude: ', latitude)
                 console.log('longtitude: ', longtitude)
-                // const options = {
-                //     method: 'GET',
-                //     url: 'https://golf-course-finder.p.rapidapi.com/courses',
-                //     params: { radius: '3000', lat: '44.66688459598216', lng: '-103.85624164275514' },
-                //     headers: {
-                //         'X-RapidAPI-Key': '69e8cd8063msh7d1dfa26519b302p1541d0jsn69d79d1a2ea3',
-                //         'X-RapidAPI-Host': 'golf-course-finder.p.rapidapi.com'
-                //     }
-                // };
 
                 axios.request({
                     method: 'GET',

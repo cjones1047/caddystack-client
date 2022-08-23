@@ -38,7 +38,7 @@ const FindCourse = (props) => {
     const handleZipSubmit = (e) => {
         e.preventDefault()
         
-        const geocodingKey = process.env.REACT_APP_GEOCODING_API_KEY
+        const apiKey = process.env.REACT_APP_RAPIDAPI_API_KEY
 
         // if(searchedZip.length === 5)
         // console.log(searchedZip)
@@ -52,7 +52,7 @@ const FindCourse = (props) => {
                 polygon_threshold: '0.0'
             },
             headers: {
-                'X-RapidAPI-Key': `${geocodingKey}`,
+                'X-RapidAPI-Key': `${apiKey}`,
                 'X-RapidAPI-Host': 'forward-reverse-geocoding.p.rapidapi.com'
             }
         };
@@ -64,6 +64,31 @@ const FindCourse = (props) => {
                 const longtitude = res.data[0].lon
                 console.log('latitude: ', latitude)
                 console.log('longtitude: ', longtitude)
+                // const options = {
+                //     method: 'GET',
+                //     url: 'https://golf-course-finder.p.rapidapi.com/courses',
+                //     params: { radius: '3000', lat: '44.66688459598216', lng: '-103.85624164275514' },
+                //     headers: {
+                //         'X-RapidAPI-Key': '69e8cd8063msh7d1dfa26519b302p1541d0jsn69d79d1a2ea3',
+                //         'X-RapidAPI-Host': 'golf-course-finder.p.rapidapi.com'
+                //     }
+                // };
+
+                axios.request({
+                    method: 'GET',
+                    url: 'https://golf-course-finder.p.rapidapi.com/courses',
+                    params: { radius: '10', lat: `${latitude}`, lng: `${longtitude}` },
+                    headers: {
+                        'X-RapidAPI-Key': `${apiKey}`,
+                        'X-RapidAPI-Host': 'golf-course-finder.p.rapidapi.com'
+                    }
+                })
+                    .then(res => {
+                        console.log(res.data);
+                    })
+                    .catch(err => {
+                        console.error(err);
+                    });
             })
             .catch(err => {
                 console.error(err)

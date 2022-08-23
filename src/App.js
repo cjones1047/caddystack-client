@@ -21,8 +21,11 @@ const App = () => {
 	const [user, setUser] = useState(null)
 	const [msgAlerts, setMsgAlerts] = useState([])
 
-	console.log('user in app', user)
-	console.log('message alerts', msgAlerts)
+	// console.log('user in app', user)
+	// console.log('message alerts', msgAlerts)
+
+	const [courseToShow, setCourseToShow] = useState(null)
+
 	const clearUser = () => {
 		console.log('clear user ran')
 		setUser(null)
@@ -61,7 +64,8 @@ const App = () => {
 					element={
 						<FindCourse 
 							msgAlert={msgAlert} 
-							user={user} 
+							user={user}
+							
 						/>
 					} 
 				/>

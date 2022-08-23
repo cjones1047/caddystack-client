@@ -17,7 +17,7 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
-import AdbIcon from '@mui/icons-material/Adb';
+import SportsGolfIcon from '@mui/icons-material/SportsGolf';
 
 const profileLinkStyle = {
 	color: 'black',
@@ -70,7 +70,7 @@ const Header = ({ user }) => {
 		<AppBar position="static" style={{backgroundColor: 'rgba(10, 10, 10, 0.7)'}}>
 			<Container maxWidth="">
 				<Toolbar disableGutters>
-					<AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
+					<SportsGolfIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
 					<Typography
 						variant="h6"
 						noWrap
@@ -135,7 +135,7 @@ const Header = ({ user }) => {
 							})}
 						</Menu>
 					</Box>
-					<AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
+					<SportsGolfIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
 					<Typography
 						variant="h5"
 						noWrap

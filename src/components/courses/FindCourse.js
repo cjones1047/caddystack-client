@@ -1,11 +1,15 @@
 import './FindCourse.css'
 
-import * as React from 'react';
+import React from 'react';
+import { useState } from 'react';
+import axios from 'axios';
 import Chip from '@mui/material/Chip';
 import Autocomplete from '@mui/material/Autocomplete';
 import TextField from '@mui/material/TextField';
 import Stack from '@mui/material/Stack';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+
+require('dotenv').config()
 
 const theme = createTheme({
     status: {
@@ -23,40 +27,74 @@ const theme = createTheme({
     },
 });
 
-const handleZipInput = (e) => {
-    e.preventDefault()
 
-    console.log(e.target.value)
-}
 
 const FindCourse = (props) => {
 	// const { msgAlert, user } = props
-	console.log('props in FindCourse:', props)
+	// console.log('props in FindCourse:', props)
+
+    const [searchedZip, setSearchedZip] = useState('')
+
+    const handleZipSubmit = (e) => {
+        e.preventDefault()
+        
+        const geocodingKey = process.env.REACT_APP_GEOCODING_API_KEY
+
+        // if(searchedZip.length === 5)
+        // console.log(searchedZip)
+        const options = {
+            method: 'GET',
+            url: 'https://forward-reverse-geocoding.p.rapidapi.com/v1/forward',
+            params: {
+                postalcode: `${searchedZip}`,
+                country: 'USA',
+                'accept-language': 'en',
+                polygon_threshold: '0.0'
+            },
+            headers: {
+                'X-RapidAPI-Key': `${geocodingKey}`,
+                'X-RapidAPI-Host': 'forward-reverse-geocoding.p.rapidapi.com'
+            }
+        };
+
+        axios.request(options)
+            .then(res => {
+                // console.log(res.data)
+                const latitude = res.data[0].lat
+                const longtitude = res.data[0].lon
+                console.log('latitude: ', latitude)
+                console.log('longtitude: ', longtitude)
+            })
+            .catch(err => {
+                console.error(err)
+            });
+    }
+
+    const handleChange = (e) => {
+        setSearchedZip(e.target.value)
+    }
 
 	return (
         <div className='find-course-form-container'>
-            <Stack spacing={3} sx={{ width: 500, maxWidth: '90%' }}>
-                <Autocomplete
-                    id='find-course-form'
-                    onClose={handleZipInput}
-                    options={top100Films ? top100Films : null}
-                    getOptionLabel={(option) => option.title}
-                    renderInput={(params) => (
-                        <ThemeProvider theme={theme}>
-                            <TextField
-                                {...params}
-                                onChange={handleZipInput}
-                                id='find-course-zip-field'
-                                variant="standard"
-                                color='neutral'
-                                label="Find a course here"
-                                InputLabelProps={{ style: { fontSize: 30 } }}
-                                placeholder="Enter zip code..."
-                            />
-                        </ThemeProvider>
-                    )}
-                />
-            </Stack>
+            <form 
+                onSubmit={handleZipSubmit}
+                autoComplete='off'
+                >
+                <ThemeProvider theme={theme}>
+                    <TextField
+                        onChange={handleChange}
+                        value={searchedZip}
+                        id='find-course-zip-field'
+                        invalid='true'
+                        variant="standard"
+                        color='neutral'
+                        min='5'
+                        label="Find a course here"
+                        InputLabelProps={{ style: { fontSize: 30 } }}
+                        placeholder="Enter zip code..."
+                    />
+                </ThemeProvider>
+            </form>
         </div>
         
 	)

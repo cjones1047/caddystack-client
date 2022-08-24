@@ -15,6 +15,7 @@ import SignIn from './components/auth/SignIn'
 import SignOut from './components/auth/SignOut'
 import ChangePassword from './components/auth/ChangePassword'
 import FindCourse from './components/courses/FindCourse'
+import ShowCourse from './components/courses/ShowCourse'
 
 const App = () => {
 
@@ -66,6 +67,16 @@ const App = () => {
 							msgAlert={msgAlert} 
 							user={user}
 							setCourseToShow={setCourseToShow}
+						/>
+					} 
+				/>
+				<Route 
+					path='/show-course' 
+					element={
+						<ShowCourse
+							msgAlert={msgAlert} 
+							user={user}
+							courseToShow={courseToShow}
 						/>
 					} 
 				/>

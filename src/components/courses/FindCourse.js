@@ -2,6 +2,7 @@ import './FindCourse.css'
 
 import React from 'react';
 import { useState } from 'react';
+import { Navigate, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import TextField from '@mui/material/TextField';
 import { List, ListItem, ListItemText, Divider } from '@mui/material';
@@ -26,25 +27,40 @@ const theme = createTheme({
 const FindCourse = (props) => {
 	const { msgAlert, user, setCourseToShow } = props
 	// console.log('props in FindCourse:', props)
+    let navigate = useNavigate()
 
     const [searchedZip, setSearchedZip] = useState('')
     const [searchedCourseList, setSearchedCourseList] = useState('')
 
-    const handleCourseClick = (e, courseName, courseZip) => {
+    const handleCourseClick = (e, courseName, courseZip, courseId) => {
         e.preventDefault()
 
-        console.log('Name of course: ', courseName)
-        console.log('Zip of course: ', courseZip)
+        // console.log('Name of course: ', courseName)
+        // console.log('Zip of course: ', courseZip)
+        // console.log('Custom courseId: ', courseId)
+
+        setCourseToShow(() => {
+            return ({
+                courseName: courseName,
+                courseZip: courseZip,
+                courseId: courseId
+            })
+        })
+
+        navigate('/show-course', {replace: false})
     }
 
     const handleZipSubmit = (e) => {
         e.preventDefault()
 
-        console.log('Zip in searchedZip state: ', searchedZip)
+        // console.log('Zip in searchedZip state: ', searchedZip)
         
         const apiKey = process.env.REACT_APP_RAPIDAPI_API_KEY
 
-        // if(searchedZip.length === 5)
+        if(searchedZip.length !== 5) {
+            console.log('Zip is not 5 characters')
+            return
+        }
         // console.log(searchedZip)
         const options = {
             method: 'GET',
@@ -63,7 +79,11 @@ const FindCourse = (props) => {
 
         axios.request(options)
             .then(res => {
-                // console.log(res.data)
+                // console.log(res.data.length)
+                if(!res.data.length) {
+                    console.log('Invalid zip')
+                    return
+                }
                 const latitude = res.data[0].lat
                 const longtitude = res.data[0].lon
                 console.log('latitude: ', latitude)
@@ -79,15 +99,20 @@ const FindCourse = (props) => {
                     }
                 })
                     .then(res => {
+                        if(res.data.courses.length === 0) {
+                            console.log('No courses near zip')
+                            return
+                        }
                         console.log(res.data);
                         const courses = res.data.courses.map((course, i) => {
+                            const courseId = course.zip_code+course.distance+course.name.slice(0, 3)
                             return (
 
                                 <ListItem 
                                     key={i} 
                                     button 
                                     divider
-                                    onClick={(e) => handleCourseClick(e, course.name, course.zip_code)}
+                                    onClick={(e) => handleCourseClick(e, course.name, course.zip_code, courseId)}
                                     >
                                     <ListItemText 
                                         primary={course.name} 

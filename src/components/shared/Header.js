@@ -44,7 +44,8 @@ const unauthenticatedOptions = [
 
 const pages = [
 	{ str: 'Home', link: '/'},
-	{ str: 'Find A Course', link: 'find-a-course'}
+	{ str: 'Find A Course', link: 'find-a-course'},
+	{ str: 'Show Course', link: 'show-course'}
 ]
 
 const Header = ({ user }) => {
@@ -125,7 +126,7 @@ const Header = ({ user }) => {
 										key={i}
 										onClick={handleCloseNavMenu}
 										divider
-										style={{width: '50vw'}}
+										style={{width: '70vw'}}
 										>
 											<Typography textAlign="center">
 												<Link to={pageLink} style={profileLinkStyle}>

@@ -14,7 +14,7 @@ export const getShowCourse = (courseId) => {
 
 // CREATE
 export const createCourse = (user, newCourse) => {
-    console.log('createCourse in API was hit')
+    console.log('createCourse in API hit')
     // inour createBook form, we're building an object
     // when we pass that object into the api createBook function
     // it's going to look like the books in our database

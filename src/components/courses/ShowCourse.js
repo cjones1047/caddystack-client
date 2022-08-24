@@ -20,7 +20,7 @@ import MoreVertIcon from '@mui/icons-material/MoreVert';
 
 import Spinner from 'react-bootstrap/Spinner'
 
-import { getShowCourse } from "../../api/course";
+import { getShowCourse, createCourse } from "../../api/course";
 import CreateCourseButton from "../shared/CreateCourseButton";
 
 const ExpandMore = styled((props) => {
@@ -46,7 +46,10 @@ const ShowCourse = (props) => {
     useEffect(() => {
         console.log('ShowCourse mounted')
         getShowCourse(courseToShow.courseId)
-            .then(course => setCourseDetails(course))
+            .then(course => {
+                console.log('Course in database: ',course)
+                setCourseDetails(course.data.course)
+            })
             .catch(() => {
                 const apiKey = process.env.REACT_APP_RAPIDAPI_API_KEY
 
@@ -67,8 +70,12 @@ const ShowCourse = (props) => {
                                 name: result.name,
                                 address: result.formatted_address,
                                 phoneNumber: result.formatted_phone_number,
-                                website: result.website,
-                                hours: result.opening_hours.weekday_text,
+                                website: result.website, 
+                                hours: result.permanently_closed
+                                    ? 
+                                        null 
+                                    : 
+                                        result.opening_hours.weekday_text,
                                 courseId: courseToShow.courseId
                             })
                         })
@@ -79,12 +86,36 @@ const ShowCourse = (props) => {
             })
     }, [refreshThisCourse])
 
+    const addToMyCourses = (e) => {
+        e.preventDefault()
+
+        createCourse(user, courseDetails)
+        // promise handling for createCourse here:
+            // send a success message to the user
+            .then(setRefreshThisCourse(prev => !prev))
+            .then(() => {
+                msgAlert({
+                    heading: 'Done',
+                    message: 'Course added to My Courses',
+                    variant: 'success'
+                })
+            })
+            // if there is an error, tell the user about it
+            .catch(() => {
+                msgAlert({
+                    heading: 'Error',
+                    message: 'Something went wrong',
+                    variant: 'danger'
+                })
+            })
+    }
+
     const handleExpandClick = () => {
         setExpanded(!expanded);
     };
 
     if (!courseDetails) return (
-        <Spinner animation="border" role="status">
+        <Spinner animation="border" role="status" variant="light">
             <span className="visually-hidden">Loading...</span>
         </Spinner>
     )
@@ -114,6 +145,8 @@ const ShowCourse = (props) => {
             </CardContent>
             <CardActions disableSpacing>
                 <CreateCourseButton 
+                    user={user}
+                    addToMyCourses={addToMyCourses}
 
                 />
                 <IconButton aria-label="share">

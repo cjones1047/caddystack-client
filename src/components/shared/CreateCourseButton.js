@@ -8,9 +8,7 @@ import messages from './AutoDismissAlert/messages';
 const CreateCourseButton = (props) => {
     const { 
         user, 
-        msgAlert, 
-        book, 
-        setUpdateTaggedBooks,
+        addToMyCourses
      } = props
 
     let navigate = useNavigate()
@@ -88,7 +86,11 @@ const CreateCourseButton = (props) => {
         <Button 
             size="small"
             color='success'
-            style={{fontWeight: 'bold'}}>Add to My Courses</Button>
+            style={{fontWeight: 'bold'}}
+            onClick={addToMyCourses}
+            >
+                Add to My Courses
+        </Button>
 
         //   <>
         //     { book.owner && user && book.owner._id === user.id

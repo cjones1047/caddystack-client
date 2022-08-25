@@ -43,9 +43,7 @@ const unauthenticatedOptions = [
 ]
 
 const pages = [
-	{ str: 'Home', link: '/'},
-	{ str: 'Find A Course', link: 'find-a-course'},
-	{ str: 'Show Course', link: 'show-course'}
+	{ str: 'Find A Course', link: 'find-a-course'}
 ]
 
 const Header = ({ user }) => {

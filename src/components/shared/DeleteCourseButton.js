@@ -83,7 +83,8 @@ const DeleteCourseButton = (props) => {
 
     return (
 
-        <Button 
+        <Button
+            variant='outlined'
             size="small"
             color='error'
             style={{fontWeight: 'bold'}}

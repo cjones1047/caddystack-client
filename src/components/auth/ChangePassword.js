@@ -33,7 +33,7 @@ const ChangePassword = (props) => {
 		changePassword(passwords, user)
 			.then(() =>
 				msgAlert({
-					heading: 'Change Password Success',
+					heading: 'Done',
 					message: messages.changePasswordSuccess,
 					variant: 'success',
 				})

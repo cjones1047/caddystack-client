@@ -84,6 +84,7 @@ const CreateCourseButton = (props) => {
     return (
 
         <Button 
+            variant='outlined'
             size="small"
             color='success'
             style={{fontWeight: 'bold'}}

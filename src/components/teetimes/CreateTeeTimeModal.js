@@ -2,9 +2,10 @@ import { Modal } from 'react-bootstrap';
 
 import { React, useState } from 'react';
 import Button from '@mui/material/Button';
-import ReactDatePicker from 'react-datepicker';
+import Box from '@mui/material/Box';
 
-import PickDate from '../teetimes/PickDate';
+import PickDate from './PickDate';
+import PickTime from './PickTime';
 
 const CreateTeeTimeModal = (props) => {
 	const { 
@@ -51,9 +52,11 @@ const CreateTeeTimeModal = (props) => {
                 <Modal.Body
                     style={{ backgroundColor: 'whitesmoke' }}
                 >
-                    <PickDate
-
-                    />
+                    <Box sx={{ display: 'flex', gap: '10px', justifyContent: 'center'}}>
+                        <PickDate />
+                        <PickTime />
+                        {/* <Pick */}
+                    </Box>
                 </Modal.Body>
             </Modal>
         </>

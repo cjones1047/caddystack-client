@@ -27,7 +27,7 @@ import Spinner from 'react-bootstrap/Spinner'
 import { getShowCourse, createCourse, deleteCourse } from "../../api/course";
 import CreateCourseButton from "../shared/CreateCourseButton";
 import DeleteCourseButton from "../shared/DeleteCourseButton";
-import CreateTeeTimeModal from '../shared/CreateTeeTimeModal';
+import CreateTeeTimeModal from '../teetimes/CreateTeeTimeModal';
 import PickDate from '../teetimes/PickDate';
 
 const ExpandMore = styled((props) => {

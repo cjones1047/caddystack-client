@@ -103,7 +103,7 @@ const FindCourse = (props) => {
                             console.log('No courses near zip')
                             return
                         }
-                        console.log(res.data);
+                        // console.log(res.data);
                         const courses = res.data.courses.map((course, i) => {
                             const courseId = course.zip_code+course.name.slice(0, 3).replace(' ', '_')
                             return (

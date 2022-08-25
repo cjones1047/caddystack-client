@@ -43,16 +43,15 @@ const ShowCourse = (props) => {
     const [refreshThisCourse, setRefreshThisCourse] = useState(true)
     const [expanded, setExpanded] = useState(false);
 
-	console.log('props in ShowCourse:', props)
+	// console.log('props in ShowCourse:', props)
+    console.log('Course details: ', courseDetails)
 
     useEffect(() => {
         console.log('ShowCourse mounted')
         getShowCourse(user ? user._id : null, courseToShow.courseId)
+            // .then()
+            .then(course => setCourseDetails(course.data.course))
             .then(setCourseInDatabase(true))
-            .then(course => {
-                console.log('Course in database: ',course)
-                setCourseDetails(course.data.course)
-            })
             .catch(() => {
                 const apiKey = process.env.REACT_APP_RAPIDAPI_API_KEY
 
@@ -83,6 +82,7 @@ const ShowCourse = (props) => {
                             })
                         })
                     })
+                    .then(setCourseInDatabase(false))
                     .catch(err => {
                         console.log(err)
                     })
@@ -101,9 +101,9 @@ const ShowCourse = (props) => {
                     message: 'Course added to My Courses',
                     variant: 'success'
                 })
-                return
+                setRefreshThisCourse(prev => !prev)
             })
-            .then(setRefreshThisCourse(prev => !prev))
+            // .then()
             // if there is an error, tell the user about it
             .catch(() => {
                 msgAlert({
@@ -126,9 +126,9 @@ const ShowCourse = (props) => {
                     message: 'Course deleted from My Courses',
                     variant: 'success'
                 })
-                return
+                setRefreshThisCourse(prev => !prev)
             })
-            .then(setRefreshThisCourse(prev => !prev))
+            // .then()
             // if there is an error, tell the user about it
             .catch(() => {
                 msgAlert({

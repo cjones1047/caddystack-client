@@ -20,8 +20,9 @@ import MoreVertIcon from '@mui/icons-material/MoreVert';
 
 import Spinner from 'react-bootstrap/Spinner'
 
-import { getShowCourse, createCourse } from "../../api/course";
+import { getShowCourse, createCourse, deleteCourse } from "../../api/course";
 import CreateCourseButton from "../shared/CreateCourseButton";
+import DeleteCourseButton from "../shared/DeleteCourseButton";
 
 const ExpandMore = styled((props) => {
     const { expand, ...other } = props;
@@ -38,6 +39,7 @@ const ShowCourse = (props) => {
 	const { msgAlert, user, courseToShow } = props
 
     const [courseDetails, setCourseDetails] = useState(null)
+    const [courseInDatabase, setCourseInDatabase] = useState(false)
     const [refreshThisCourse, setRefreshThisCourse] = useState(true)
     const [expanded, setExpanded] = useState(false);
 
@@ -45,7 +47,8 @@ const ShowCourse = (props) => {
 
     useEffect(() => {
         console.log('ShowCourse mounted')
-        getShowCourse(courseToShow.courseId)
+        getShowCourse(user ? user._id : null, courseToShow.courseId)
+            .then(setCourseInDatabase(true))
             .then(course => {
                 console.log('Course in database: ',course)
                 setCourseDetails(course.data.course)
@@ -92,14 +95,40 @@ const ShowCourse = (props) => {
         createCourse(user, courseDetails)
         // promise handling for createCourse here:
             // send a success message to the user
-            .then(setRefreshThisCourse(prev => !prev))
             .then(() => {
                 msgAlert({
                     heading: 'Done',
                     message: 'Course added to My Courses',
                     variant: 'success'
                 })
+                return
             })
+            .then(setRefreshThisCourse(prev => !prev))
+            // if there is an error, tell the user about it
+            .catch(() => {
+                msgAlert({
+                    heading: 'Error',
+                    message: 'Something went wrong',
+                    variant: 'danger'
+                })
+            })
+    }
+
+    const deleteFromMyCourses = (e) => {
+        e.preventDefault()
+
+        deleteCourse(user, courseDetails.courseId)
+        // promise handling for createCourse here:
+            // send a success message to the user
+            .then(() => {
+                msgAlert({
+                    heading: 'Done',
+                    message: 'Course deleted from My Courses',
+                    variant: 'success'
+                })
+                return
+            })
+            .then(setRefreshThisCourse(prev => !prev))
             // if there is an error, tell the user about it
             .catch(() => {
                 msgAlert({
@@ -144,20 +173,39 @@ const ShowCourse = (props) => {
                 </Typography>
             </CardContent>
             <CardActions disableSpacing>
-                <CreateCourseButton 
-                    user={user}
-                    addToMyCourses={addToMyCourses}
+                {user
+                    ?
+                        courseInDatabase && courseDetails.owner && courseDetails.owner === user._id
+                            ?
+                                <DeleteCourseButton
+                                    user={user}
+                                    deleteFromMyCourses={deleteFromMyCourses}
+                                />
+                            :
+                                <CreateCourseButton
+                                    user={user}
+                                    addToMyCourses={addToMyCourses}
 
-                />
-                <IconButton aria-label="share">
+                                />
+                    :
+                        null
+                }
+                
+                {/* <IconButton aria-label="share">
                     <ShareIcon />
-                </IconButton>
+                </IconButton> */}
                 <ExpandMore
                     expand={expanded}
                     onClick={handleExpandClick}
                     aria-expanded={expanded}
                     aria-label="show more"
                 >
+                    {expanded === false
+                        ?
+                            <div style={{fontSize: '15px'}}>See tee times</div>
+                        :
+                            null
+                    }
                     <ExpandMoreIcon />
                 </ExpandMore>
             </CardActions>

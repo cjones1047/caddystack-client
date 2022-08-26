@@ -28,7 +28,7 @@ import { getShowCourse, createCourse, deleteCourse } from "../../api/course";
 import CreateCourseButton from "../shared/CreateCourseButton";
 import DeleteCourseButton from "../shared/DeleteCourseButton";
 import CreateTeeTimeModal from '../teetimes/CreateTeeTimeModal';
-import PickDate from '../teetimes/PickDate';
+import CourseTeeTimesList from '../teetimes/CourseTeeTimesList';
 
 const ExpandMore = styled((props) => {
     const { expand, ...other } = props;
@@ -253,7 +253,12 @@ const ShowCourse = (props) => {
                 </CardActions>
                 <Collapse in={expanded} timeout="auto" unmountOnExit>
                     <CardContent>
-                        Will be able to see all tee times created here:
+                        < CourseTeeTimesList
+                            user={user}
+                            msgAlert={msgAlert}
+                            courseDetails={courseDetails}
+                            refreshThisCourse={refreshThisCourse}
+                        />
                     </CardContent>
                 </Collapse>
             </Card>

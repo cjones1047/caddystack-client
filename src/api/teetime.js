@@ -1,6 +1,12 @@
 import apiUrl from '../apiConfig'
 import axios from 'axios'
 
+// INDEX
+export const getCourseTeeTimes = (courseId) => {
+    console.log('getCourseTeeTimes in API hit')
+    return axios(`${apiUrl}/teetime/${courseId}`)
+}
+
 // CREATE
 export const createTeetime = (user, newTeetime) => {
     console.log('createTeetime in API hit')

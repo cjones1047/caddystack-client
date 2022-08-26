@@ -9,6 +9,11 @@ const PickAskPrice = (props) => {
 
     const [value, setValue] = useState(askPrice);
 
+    const handleChange = (e) => {
+        setValue(e.target.value)
+        handleFormValueChange('askPrice', e.target.value)
+    }
+
     return (
         <Box 
             sx={{ display: 'flex', alignItems: 'flex-end' }}
@@ -19,12 +24,9 @@ const PickAskPrice = (props) => {
             <TextField 
                 label="Bidding start price..." 
                 variant="standard"
-                name='askPrice'
+                // name='askPrice'
                 value={value}
-                onChange={newValue => {
-                    handleFormValueChange('askPrice', newValue)
-                    setValue(newValue)
-                }}
+                onChange={handleChange}
                 type='number'
                 inputProps={{ inputMode: 'numeric', pattern: '[0-9]*', min: '0' }}
             />

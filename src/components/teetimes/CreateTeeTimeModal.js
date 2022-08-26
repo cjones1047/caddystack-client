@@ -25,8 +25,8 @@ const CreateTeeTimeModal = (props) => {
 	// console.log('props in Home:', props)
     
     const [formState, setFormState] = useState({
-        date: dayjs(),
-        time: dayjs(),
+        date: '',
+        time: '',
         golfers: '',
         carts: '',
         askPrice: '',
@@ -35,13 +35,13 @@ const CreateTeeTimeModal = (props) => {
 
     console.log('Form state: ', formState)
 
-    const handleFormValueChange = (name, e) => {
+    const handleFormValueChange = (name, newValue) => {
         // console.log(e)
         console.log(name)
-        console.log(e)
+        console.log(newValue)
         setFormState({
             ...formState,
-            [name]: e.target.value,
+            [name]: newValue,
         });
     };
 

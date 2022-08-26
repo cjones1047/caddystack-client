@@ -9,6 +9,11 @@ const PickCarts = (props) => {
 
     const [value, setValue] = useState(carts);
 
+    const handleChange = (e) => {
+        setValue(e.target.value)
+        handleFormValueChange('carts', e.target.value)
+    }
+
     return (
         <Box
             sx={{ display: 'flex', alignItems: 'flex-end', width: '35%' }}
@@ -19,12 +24,9 @@ const PickCarts = (props) => {
             <TextField
                 label="# of"
                 variant="standard"
-                name='carts'
+                // name='carts'
                 value={value}
-                onChange={newValue => {
-                    handleFormValueChange('carts', newValue)
-                    setValue(newValue)
-                }}
+                onChange={handleChange}
                 type='number'
                 inputProps={{ inputMode: 'numeric', pattern: '[0-9]*', min: '0' }}
             />

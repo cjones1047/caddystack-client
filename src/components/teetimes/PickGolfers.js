@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import PersonTwoToneIcon from '@mui/icons-material/PersonTwoTone';
@@ -8,6 +8,11 @@ const PickGolfers = (props) => {
     const { golfers, handleFormValueChange } = props
 
     const [value, setValue] = useState(golfers);
+
+    const handleChange = (e) => {
+        setValue(e.target.value)
+        handleFormValueChange('golfers', e.target.value)
+    }
 
     return (
         <Box
@@ -19,12 +24,9 @@ const PickGolfers = (props) => {
             <TextField
                 label="# of"
                 variant="standard"
-                name='golfers'
+                // name='golfers'
                 value={value}
-                onChange={newValue => {
-                    handleFormValueChange('golfers', newValue)
-                    setValue(newValue)
-                }}
+                onChange={handleChange}
                 type='number'
                 inputProps={{ inputMode: 'numeric', pattern: '[0-9]*', min: '0' }}
             />

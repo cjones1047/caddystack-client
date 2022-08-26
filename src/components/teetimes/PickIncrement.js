@@ -9,6 +9,11 @@ const PickIncrement = (props) => {
 
     const [value, setValue] = useState(increment);
 
+    const handleChange = (e) => {
+        setValue(e.target.value)
+        handleFormValueChange('increment', e.target.value)
+    }
+
     return (
         <Box 
             sx={{ display: 'flex', alignItems: 'flex-end' }}
@@ -19,12 +24,9 @@ const PickIncrement = (props) => {
             <TextField 
                 label="Increment bids by..." 
                 variant="standard"
-                name='increment'
+                // name='increment'
                 value={value}
-                onChange={newValue => {
-                    handleFormValueChange('increment', newValue)
-                    setValue(newValue)
-                }}
+                onChange={handleChange}
                 type='number'
                 inputProps={{ inputMode: 'numeric', pattern: '[0-9]*', min: '0' }}
             />

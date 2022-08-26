@@ -7,23 +7,30 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DatePicker } from '@mui/x-date-pickers';
 
 const PickDate = (props) => {
-    const { date, handleFormValueChange } = props
+    const { handleFormValueChange } = props
 
-    const [value, setValue] = React.useState(date);
+    const [value, setValue] = React.useState(dayjs());
+
+    React.useEffect(() => {
+        handleFormValueChange('date', value)
+    }, [])
+
+    const handleChange = (newValue) => {
+        // console.log(newValue)
+        setValue(newValue)
+        handleFormValueChange('date', newValue)
+    }
 
     return (
         <LocalizationProvider dateAdapter={AdapterDayjs}>
             <Stack style={{width: '45%'}} >
                 <DatePicker
                     views={['day']}
-                    name='date'
+                    // name='date'
                     value={value}
                     label="Day of tee-off?"
-                    inputFormat='MM/DD/YYYY'
-                    onChange={newValue => {
-                        handleFormValueChange('date', newValue)
-                        setValue(newValue)
-                    }}
+                    // inputFormat='MM/DD/YYYY'
+                    onChange={handleChange}
                     minDate={new Date()}
                     renderInput={(params) => <TextField {...params} helperText={null} />}
 

@@ -25,7 +25,7 @@ const SignOut = (props) => {
 			// 		variant: 'success',
 			// 	})
 			// )
-			.finally(() => navigate('/find-a-course'))
+			.finally(() => navigate('/sign-in'))
 			.finally(() => clearUser())
     }
 

@@ -2,7 +2,7 @@ import './Header.css'
 // import React, { Fragment } from 'react'
 // import Nav from 'react-bootstrap/Nav'
 // import Navbar from 'react-bootstrap/Navbar'
-import { Link, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 import * as React from 'react';
 import AppBar from '@mui/material/AppBar';
@@ -80,7 +80,7 @@ const Header = ({ user }) => {
 							textDecoration: 'none',
 						}}
 					>
-						TITLE
+						CADDYSTACK
 					</Typography>
 
 					<Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
@@ -152,7 +152,7 @@ const Header = ({ user }) => {
 							textDecoration: 'none',
 						}}
 					>
-						TITLE
+						CADDYSTACK
 					</Typography>
 					<Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
 						{pages.map((page, i) => {

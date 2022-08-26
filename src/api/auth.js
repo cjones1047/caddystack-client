@@ -53,3 +53,9 @@ export const changePassword = (passwords, user) => {
 		},
 	})
 }
+
+export const getTeeTimeOwner = (ownerId) => {
+	console.log('getTeeTimeOwner in API hit')
+	console.log('owner id: ', ownerId)
+    return axios(`${apiUrl}/owner/${ownerId}`)
+}

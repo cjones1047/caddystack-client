@@ -1,5 +1,4 @@
-import { Modal } from 'react-bootstrap';
-import Spinner from 'react-bootstrap/Spinner';
+import { ToastContainer, Spinner, Modal } from 'react-bootstrap';
 
 import { React, useEffect, useState } from 'react';
 import Button from '@mui/material/Button';
@@ -15,6 +14,7 @@ import PickAskPrice from './PickAskPrice';
 import PickIncrement from './PickIncrement';
 // import { createTeetime } from '../../api/teetime';
 import { getCourseTeeTimes } from '../../api/teetime';
+import TeeTimeToast from './TeeTimeToast';
 
 const CourseTeeTimesList = (props) => {
 	const { 
@@ -22,6 +22,7 @@ const CourseTeeTimesList = (props) => {
         msgAlert,
         courseDetails,
         refreshThisCourse,
+        setRefreshThisCourse
      } = props
 
 	// console.log('props in Home:', props)
@@ -36,13 +37,13 @@ const CourseTeeTimesList = (props) => {
     //     courseId: courseDetails.courseId,
     //     courseName: courseDetails.name
     // });
-    const [courseTeeTimes, setCourseTeeTimes] = useState(null)
+    const [courseTeeTimes, setCourseTeeTimes] = useState([])
 
     // console.log('CreateTeeTimeModal form state: ', formState)
 
     useEffect(() => {
         getCourseTeeTimes(courseDetails.courseId)
-            .then(res => setCourseTeeTimes(res.data))
+            .then(res => setCourseTeeTimes(res.data.teetimes))
             //     return teetimes.map(teetime => {
             //         return(
             //             <div>
@@ -96,19 +97,33 @@ const CourseTeeTimesList = (props) => {
 
     // }
 
-    if(!courseTeeTimes) return (
+    if(!courseTeeTimes) {
+        return (
         <div style={{display: 'flex', justifyContent: 'center',
             alignItems: 'center'}}>
             <Spinner animation="border" role="status" variant="light">
                 <span className="visually-hidden">Loading...</span>
             </Spinner>
         </div>
-    )
+    )}
+    
+    const teeTimeList =  courseTeeTimes.map((teetime, i) => {
+        return(
+            <TeeTimeToast
+                i={i}
+                teetime={teetime}
+                user={user}
+                msgAlert={msgAlert}
+                refreshThisCourse={refreshThisCourse}
+                setRefreshThisCourse={setRefreshThisCourse}
+            />
+        )
+    })
 
 	return (
-        <>
-            courseTeeTimes state contains array of tee times
-        </>
+        <ToastContainer>
+            {teeTimeList}
+        </ToastContainer>
 	)
 }
 

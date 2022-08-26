@@ -206,6 +206,7 @@ const ShowCourse = (props) => {
                                     user={user}
                                     msgAlert={msgAlert}
                                     courseDetails={courseDetails}
+                                    refreshThisCourse={refreshThisCourse}
                                     setRefreshThisCourse={setRefreshThisCourse}
                                     showAddTeeTimeModal={showAddTeeTimeModal}
                                     setShowAddTeeTimeModal={setShowAddTeeTimeModal}

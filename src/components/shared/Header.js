@@ -2,7 +2,7 @@ import './Header.css'
 // import React, { Fragment } from 'react'
 // import Nav from 'react-bootstrap/Nav'
 // import Navbar from 'react-bootstrap/Navbar'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 import * as React from 'react';
 import AppBar from '@mui/material/AppBar';
@@ -18,6 +18,7 @@ import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import SportsGolfIcon from '@mui/icons-material/SportsGolf';
+import { Divider } from '@mui/material';
 
 const profileLinkStyle = {
 	color: 'black',
@@ -25,21 +26,14 @@ const profileLinkStyle = {
 }
 
 const authenticatedOptions = [
-	<Link to='change-password' style={profileLinkStyle}>
-		Change Password
-	</Link>,
-	<Link to='sign-out' style={profileLinkStyle}>
-		Logout
-	</Link>
+	{str: 'Change Password', link: 'change-password'},
+	{str: 'Logout', link: 'sign-out'}
+	
 ]
 
 const unauthenticatedOptions = [
-	<Link to='sign-up' style={profileLinkStyle}>
-		Sign Up
-	</Link>,
-	<Link to='sign-in' style={profileLinkStyle}>
-		Sign In
-	</Link>
+	{str: 'Sign Up', link: 'sign-up'},
+	{str: 'Sign In', link: 'sign-in'}
 ]
 
 const pages = [
@@ -49,6 +43,8 @@ const pages = [
 const Header = ({ user }) => {
 	const [anchorElNav, setAnchorElNav] = React.useState(null);
 	const [anchorElUser, setAnchorElUser] = React.useState(null);
+
+	let navigate = useNavigate()
 
 	const handleOpenNavMenu = (event) => {
 		setAnchorElNav(event.currentTarget);
@@ -122,14 +118,18 @@ const Header = ({ user }) => {
 								return (
 									<MenuItem 
 										key={i}
-										onClick={handleCloseNavMenu}
+										onClick={() => {
+											handleCloseNavMenu()
+											navigate(`/${pageLink}`, {replace: false})
+										}}
 										divider
-										style={{width: '70vw'}}
+										style={{width: '70vw', maxWidth: '300px'}}
 										>
-											<Typography textAlign="center">
-												<Link to={pageLink} style={profileLinkStyle}>
-													{pageStr}
-												</Link>
+											<Typography
+												textAlign="center"
+												// style={profileLinkStyle}
+											>
+												{pageStr}
 											</Typography>
 									</MenuItem>
 								)
@@ -162,12 +162,13 @@ const Header = ({ user }) => {
 								<Button
 									key={i}
 									className="appbarButton"
-									onClick={handleCloseNavMenu}
-									sx={{ my: 2, color: 'white', display: 'block' }}
+									onClick={() => {
+										handleCloseNavMenu()
+										navigate(`/${pageLink}`, {replace: false})
+									}}
+									sx={{ my: 2, color: 'white', display: 'block', fontWeight: 'bold' }}
 								>
-									<Link className="appbarButton" to={pageLink}>
-										{pageStr}
-									</Link>
+									{pageStr}
 								</Button>
 							)
 						})}
@@ -202,16 +203,22 @@ const Header = ({ user }) => {
 							))} */}
 
 							{user && (
-								<MenuItem>My Account</MenuItem>
+								<div style={{display: 'flex', justifyContent: 'left', fontWeight: 'bold', margin: '10px', marginLeft: '15px', marginTop: '5px'}}>
+									Welcome {user.email}
+								</div>
 							)}
 							{/* {alwaysOptions} */}
 							{user ?
 								authenticatedOptions.map((option, i) => {
 									return (
 										<MenuItem
-											key={i} 
-											onClick={handleCloseUserMenu}>
-												{option}
+											key={i}
+											onClick={() => {
+												handleCloseUserMenu()
+												navigate(`/${option.link}`, {replace: false})
+											}}
+										>
+												{option.str}
 										</MenuItem>
 									)
 								})
@@ -219,9 +226,13 @@ const Header = ({ user }) => {
 								unauthenticatedOptions.map((option, i) => {
 									return (
 										<MenuItem
-											key={i} 
-											onClick={handleCloseUserMenu}>
-												{option}
+											key={i}
+											onClick={() => {
+												handleCloseUserMenu()
+												navigate(`/${option.link}`, {replace: false})
+											}}
+										>
+												{option.str}
 										</MenuItem>
 									)
 								})

@@ -2,7 +2,7 @@ import './FindCourse.css'
 
 import React from 'react';
 import { useState } from 'react';
-import { Navigate, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import TextField from '@mui/material/TextField';
 import { List, ListItem, ListItemText, Divider } from '@mui/material';

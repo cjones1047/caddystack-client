@@ -31,6 +31,7 @@ const CreateTeeTimeModal = (props) => {
         carts: '',
         askPrice: '',
         increment: '',
+        courseId: courseToShow.courseId
     });
 
     console.log('Form state: ', formState)

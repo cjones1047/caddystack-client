@@ -252,7 +252,7 @@ const ShowCourse = (props) => {
                 </CardActions>
                 <Collapse in={expanded} timeout="auto" unmountOnExit>
                     <CardContent>
-                        <PickDate />
+                        Will be able to see all tee times created here:
                     </CardContent>
                 </Collapse>
             </Card>

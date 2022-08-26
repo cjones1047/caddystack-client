@@ -162,19 +162,9 @@ const ShowCourse = (props) => {
         <div className="show-course-container">
             <Card sx={{ width: '90%', maxWidth: 800 }}>
                 <CardHeader
-                    // avatar={
-                    //     <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
-                    //         R
-                    //     </Avatar>
-                    // }
-                    // action={
-                    //     <IconButton aria-label="settings">
-                    //         <MoreVertIcon />
-                    //     </IconButton>
-                    // }
                     title={courseDetails.name}
                     style={{backgroundColor: 'rgba(233, 233, 233, 0.8)'}}
-                    // subheader="September 14, 2016"
+                    // subheader="Date:"
                 />
                 <CardContent>
                     <Typography color="text.secondary">
@@ -215,6 +205,7 @@ const ShowCourse = (props) => {
                                 <CreateTeeTimeModal 
                                     user={user}
                                     msgAlert={msgAlert}
+                                    courseToShow={courseToShow}
                                     showAddTeeTimeModal={showAddTeeTimeModal}
                                     setShowAddTeeTimeModal={setShowAddTeeTimeModal}
                                 />
@@ -246,6 +237,7 @@ const ShowCourse = (props) => {
                     <ExpandMore
                         expand={expanded}
                         onClick={handleExpandClick}
+                        style={{borderRadius: '50px'}}
                         aria-expanded={expanded}
                         aria-label="show more"
                     >

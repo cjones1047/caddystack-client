@@ -7,7 +7,9 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DatePicker } from '@mui/x-date-pickers';
 
 const PickDate = (props) => {
-    const [value, setValue] = React.useState(dayjs());
+    const { date, handleFormValueChange } = props
+
+    const [value, setValue] = React.useState(date);
 
     return (
         <LocalizationProvider dateAdapter={AdapterDayjs}>
@@ -15,11 +17,12 @@ const PickDate = (props) => {
                 <DatePicker
                     views={['day']}
                     name='date'
+                    value={value}
                     label="Day of tee-off?"
                     inputFormat='MM/DD/YYYY'
-                    value={value}
-                    onChange={(newValue) => {
-                        setValue(newValue);
+                    onChange={newValue => {
+                        handleFormValueChange('date', newValue)
+                        setValue(newValue)
                     }}
                     minDate={new Date()}
                     renderInput={(params) => <TextField {...params} helperText={null} />}

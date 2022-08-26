@@ -3,6 +3,8 @@ import { Modal } from 'react-bootstrap';
 import { React, useState } from 'react';
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import dayjs from 'dayjs';
 
 import PickDate from './PickDate';
 import PickTime from './PickTime';
@@ -15,23 +17,37 @@ const CreateTeeTimeModal = (props) => {
 	const { 
         msgAlert, 
         user,
+        courseToShow,
         showAddTeeTimeModal,
         setShowAddTeeTimeModal
      } = props
+
 	// console.log('props in Home:', props)
     
-    // const [formState, setFormState] = useState({
-    //     gilad: true,
-    //     jason: false,
-    //     antoine: false,
-    // });
+    const [formState, setFormState] = useState({
+        date: dayjs(),
+        time: dayjs(),
+        golfers: '',
+        carts: '',
+        askPrice: '',
+        increment: '',
+    });
 
-    // const handleChange = (e) => {
-    //     setState({
-    //         ...state,
-    //         [e.target.name]: e.target.value,
-    //     });
-    // };
+    console.log('Form state: ', formState)
+
+    const handleFormValueChange = (name, e) => {
+        // console.log(e)
+        console.log(name)
+        console.log(e)
+        setFormState({
+            ...formState,
+            [name]: e.target.value,
+        });
+    };
+
+    const handleFormSubmission = (e) => {
+        e.preventDefault()
+    }
 
 	return (
         <>
@@ -57,18 +73,18 @@ const CreateTeeTimeModal = (props) => {
                     style={{ backgroundColor: 'whitesmoke' }}
                 >
                     <Box sx={{ display: 'flex', gap: '20px', margin: '20px', justifyContent: 'center'}}>
-                        <PickDate />
-                        <PickTime />
+                        <PickDate date={formState.date} handleFormValueChange={handleFormValueChange}/>
+                        <PickTime time={formState.time} handleFormValueChange={handleFormValueChange}/>
                     </Box>
                     <Box sx={{ display: 'flex', gap: '40px', margin: '20px', justifyContent: 'center'}}>
-                        <PickGolfers />
-                        <PickCarts />
+                        <PickGolfers golfers={formState.golfers} handleFormValueChange={handleFormValueChange}/>
+                        <PickCarts carts={formState.carts} handleFormValueChange={handleFormValueChange}/>
                     </Box>
                     <Box sx={{ display: 'flex', margin: '20px', justifyContent: 'center'}}>
-                        <PickAskPrice />
+                        <PickAskPrice askPrice={formState.askPrice} handleFormValueChange={handleFormValueChange}/>
                     </Box>
                     <Box sx={{ display: 'flex', margin: '20px', justifyContent: 'center'}}>
-                        <PickIncrement />
+                        <PickIncrement increment={formState.increment} handleFormValueChange={handleFormValueChange}/>
                     </Box>
                     <Box sx={{ display: 'flex', marginTop: '40px', marginBottom: '20px', justifyContent: 'center'}}>
                         <Button
@@ -76,7 +92,7 @@ const CreateTeeTimeModal = (props) => {
                             size="small"
                             color='primary'
                             style={{ fontWeight: 'bold', marginBottom: 10 }}
-                            onClick={() => {}}
+                            onClick={handleFormSubmission}
                         >
                             Post tee time
                         </Button>
@@ -99,6 +115,7 @@ export default CreateTeeTimeModal
 // import FormControlLabel from '@mui/material/FormControlLabel';
 // import FormHelperText from '@mui/material/FormHelperText';
 // import Checkbox from '@mui/material/Checkbox';
+// import dayjs from 'dayjs';
 
 // export default function CheckboxesGroup() {
 //     const [state, setState] = React.useState({

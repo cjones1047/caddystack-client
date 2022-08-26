@@ -12,12 +12,14 @@ import PickGolfers from './PickGolfers';
 import PickCarts from './PickCarts';
 import PickAskPrice from './PickAskPrice';
 import PickIncrement from './PickIncrement';
+import { createTeetime } from '../../api/teetime';
 
 const CreateTeeTimeModal = (props) => {
 	const { 
         msgAlert, 
         user,
-        courseToShow,
+        courseDetails,
+        setRefreshThisCourse,
         showAddTeeTimeModal,
         setShowAddTeeTimeModal
      } = props
@@ -31,10 +33,11 @@ const CreateTeeTimeModal = (props) => {
         carts: '',
         askPrice: '',
         increment: '',
-        courseId: courseToShow.courseId
+        courseId: courseDetails.courseId,
+        courseName: courseDetails.name
     });
 
-    console.log('Form state: ', formState)
+    console.log('CreateTeeTimeModal form state: ', formState)
 
     const handleFormValueChange = (name, newValue) => {
         // console.log(e)
@@ -48,6 +51,29 @@ const CreateTeeTimeModal = (props) => {
 
     const handleFormSubmission = (e) => {
         e.preventDefault()
+
+        createTeetime(user, formState)
+        // promise handling for createCourse here:
+            // send a success message to the user
+            .then(() => {
+                msgAlert({
+                    heading: 'Done',
+                    message: 'Teetime added to course',
+                    variant: 'success'
+                })
+                setRefreshThisCourse(prev => !prev)
+            })
+            // .then()
+            // if there is an error, tell the user about it
+            .catch(() => {
+                msgAlert({
+                    heading: 'Error',
+                    message: 'Something went wrong',
+                    variant: 'danger'
+                })
+            })
+
+
     }
 
 	return (

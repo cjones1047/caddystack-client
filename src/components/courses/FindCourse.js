@@ -151,7 +151,7 @@ const FindCourse = (props) => {
                             onChange={handleChange}
                             value={searchedZip}
                             id='find-course-zip-field'
-                            invalid='true'
+                            // invalid='true'
                             variant="standard"
                             color='neutral'
                             label="Find a course here"

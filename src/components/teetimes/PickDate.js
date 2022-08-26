@@ -11,9 +11,10 @@ const PickDate = (props) => {
 
     return (
         <LocalizationProvider dateAdapter={AdapterDayjs}>
-            <Stack spacing={3} style={{width: '45%'}}>
+            <Stack style={{width: '45%'}} >
                 <DatePicker
                     views={['day']}
+                    name='date'
                     label="Day of tee-off?"
                     inputFormat='MM/DD/YYYY'
                     value={value}

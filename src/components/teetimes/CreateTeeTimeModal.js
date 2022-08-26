@@ -6,6 +6,10 @@ import Box from '@mui/material/Box';
 
 import PickDate from './PickDate';
 import PickTime from './PickTime';
+import PickGolfers from './PickGolfers';
+import PickCarts from './PickCarts';
+import PickAskPrice from './PickAskPrice';
+import PickIncrement from './PickIncrement';
 
 const CreateTeeTimeModal = (props) => {
 	const { 
@@ -52,10 +56,30 @@ const CreateTeeTimeModal = (props) => {
                 <Modal.Body
                     style={{ backgroundColor: 'whitesmoke' }}
                 >
-                    <Box sx={{ display: 'flex', gap: '10px', justifyContent: 'center'}}>
+                    <Box sx={{ display: 'flex', gap: '20px', margin: '20px', justifyContent: 'center'}}>
                         <PickDate />
                         <PickTime />
-                        {/* <Pick */}
+                    </Box>
+                    <Box sx={{ display: 'flex', gap: '40px', margin: '20px', justifyContent: 'center'}}>
+                        <PickGolfers />
+                        <PickCarts />
+                    </Box>
+                    <Box sx={{ display: 'flex', margin: '20px', justifyContent: 'center'}}>
+                        <PickAskPrice />
+                    </Box>
+                    <Box sx={{ display: 'flex', margin: '20px', justifyContent: 'center'}}>
+                        <PickIncrement />
+                    </Box>
+                    <Box sx={{ display: 'flex', marginTop: '40px', marginBottom: '20px', justifyContent: 'center'}}>
+                        <Button
+                            variant='contained'
+                            size="small"
+                            color='primary'
+                            style={{ fontWeight: 'bold', marginBottom: 10 }}
+                            onClick={() => {}}
+                        >
+                            Post tee time
+                        </Button>
                     </Box>
                 </Modal.Body>
             </Modal>

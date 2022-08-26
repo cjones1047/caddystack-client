@@ -11,9 +11,10 @@ const PickDate = (props) => {
 
     return (
         <LocalizationProvider dateAdapter={AdapterDayjs}>
-            <Stack style={{width: '45%'}} color='success'>
+            <Stack style={{width: '45%'}} >
                 <TimePicker
                     label="Time of tee-off?"
+                    name='time'
                     value={value}
                     // minTime={}
                     onChange={(newValue) => setValue(newValue)}

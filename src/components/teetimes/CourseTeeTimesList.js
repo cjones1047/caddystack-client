@@ -56,7 +56,7 @@ const CourseTeeTimesList = (props) => {
             .catch(err => {
                 console.log(err)
             })
-    }, [])
+    }, [refreshThisCourse])
 
     console.log(courseTeeTimes)
 

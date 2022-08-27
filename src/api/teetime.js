@@ -16,10 +16,27 @@ export const createTeetime = (user, newTeetime) => {
 		url: apiUrl + `/teetime`,
 		method: 'POST',
 		headers: {
-			Authorization: `Token token=${user.token}`,
+			Authorization: `Token token=${user.token}`
 		},
 		data: {
-			teetime: newTeetime,
+			teetime: newTeetime
 		},
+	})
+}
+
+// UPDATE
+export const updateTeetime = (user, updatedTeetime) => {
+    console.log('updateTeetime in API was hit')
+    console.log('this is user: ', user)
+    console.log('this is updatedBook: ', updatedTeetime)
+	return axios({
+		url: `${apiUrl}/teetime/${updatedTeetime._id}`,
+		method: 'PATCH',
+		headers: {
+			Authorization: `Token token=${user.token}`
+		},
+		data: {
+			teetime: updatedTeetime
+		}
 	})
 }

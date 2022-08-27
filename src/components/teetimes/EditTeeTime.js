@@ -1,9 +1,14 @@
-// import Button from 'react-bootstrap/Button';
-import Button from '@mui/material/Button';
 import { useNavigate } from 'react-router-dom'
+import { React, useState } from 'react';
+
+import { Modal } from 'react-bootstrap';
 
 import EditTwoToneIcon from '@mui/icons-material/EditTwoTone';
 import { IconButton } from '@mui/material';
+import Button from '@mui/material/Button';
+import Box from '@mui/material/Box';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import dayjs from 'dayjs';
 
 import PickDate from './PickDate';
 import PickTime from './PickTime';
@@ -11,10 +16,13 @@ import PickGolfers from './PickGolfers';
 import PickCarts from './PickCarts';
 import PickAskPrice from './PickAskPrice';
 import PickIncrement from './PickIncrement';
+import { updateTeetime } from '../../api/teetime';
 
 const EditTeeTime = (props) => {
     const { 
         user,
+        msgAlert,
+        setRefreshThisCourse,
         teetime
     } = props
 
@@ -28,7 +36,8 @@ const EditTeeTime = (props) => {
         askPrice: teetime.askPrice,
         increment: teetime.increment,
         courseId: teetime.courseId,
-        courseName: teetime.courseName
+        courseName: teetime.courseName,
+        _id: teetime._id
     });
     const [showEditTeeTimeModal, setShowEditTeeTimeModal] = useState(false)
 
@@ -43,6 +52,37 @@ const EditTeeTime = (props) => {
             [name]: newValue,
         });
     };
+
+    const handleConfirmEdits = (e) => {
+        e.preventDefault()
+
+        updateTeetime(user, formState)
+            // on success, send a success message
+            .then(() => {
+                msgAlert({
+                    heading: 'Done',
+                    message: 'Tee time updated.',
+                    variant: 'success'
+                })
+            })
+            // then navigate to index
+            // .then(setUpdatedCommentList)
+            // .then(() => {
+            //     navigate('/')
+            // })
+            // on failure, send a failure message
+            .then(setShowEditTeeTimeModal(false))
+            .then(setRefreshThisCourse(prev => !prev))
+            .catch(err => {
+                // navigate('/')
+                // navigate back to home page if there's an error fetching
+                msgAlert({
+                    heading: 'Error',
+                    message: "Couldn't update tee time...",
+                    variant: 'danger'
+                })
+            })
+    }
 
     return (
         <>
@@ -60,13 +100,28 @@ const EditTeeTime = (props) => {
             <Modal
                 size="lg"
                 show={showEditTeeTimeModal}
-                onHide={() => setShowEditTeeTimeModal(false)}
+                onHide={() => {
+                    setShowEditTeeTimeModal(false)
+                    setFormState({
+                        date: teetime.date,
+                        time: teetime.time,
+                        golfers: teetime.golfers,
+                        carts: teetime.carts,
+                        askPrice: teetime.askPrice,
+                        increment: teetime.increment,
+                        courseId: teetime.courseId,
+                        courseName: teetime.courseName,
+                        _id: teetime._id
+                    })
+                }}
                 backdrop={'static'}
             >
                 <Modal.Header closeButton
                     style={{ backgroundColor: 'rgb(177, 177, 177)' }}
                 >
-                    
+                    <strong>
+                        Edit This Tee Time
+                    </strong>
                 </Modal.Header>
                 <Modal.Body
                     style={{ backgroundColor: 'whitesmoke' }}
@@ -91,7 +146,7 @@ const EditTeeTime = (props) => {
                             size="small"
                             color='primary'
                             style={{ fontWeight: 'bold', marginBottom: 10 }}
-                            onClick={handleFormSubmission}
+                            onClick={handleConfirmEdits}
                         >
                             Confirm Changes
                         </Button>
@@ -99,9 +154,6 @@ const EditTeeTime = (props) => {
                 </Modal.Body>
             </Modal>
         </>
-
-
-
 
     );
 }

@@ -5,6 +5,7 @@ import Row from 'react-bootstrap/Row';
 import Toast from 'react-bootstrap/Toast';
 import Spinner from 'react-bootstrap/Spinner';
 
+
 import EditTwoToneIcon from '@mui/icons-material/EditTwoTone';
 import { IconButton } from '@mui/material';
 
@@ -55,10 +56,10 @@ const TeeTimeToast = (props) => {
             bg='success'
             onClose={() => setShow(false)} 
             show={show}
-            style={{width: '30%', height: 'fit-content'}}
+            style={{width: '30%', minWidth: '185px', height: 'fit-content'}}
         >
             <Toast.Header
-                style={{height: '50px'}}
+                style={{height: '50px', paddingRight: 25}}
                 closeButton={user && teeTimeOwner._id === user._id ? true : false}
             >
                 {user && teeTimeOwner._id === user._id 
@@ -66,12 +67,15 @@ const TeeTimeToast = (props) => {
                         <strong className="me-auto">
                             <EditTeeTime
                                 user={user}
+                                msgAlert={msgAlert}
+                                setRefreshThisCourse={setRefreshThisCourse}
                                 teetime={teetime}
                             />
                         </strong>
-                        
                     :
-                        <strong className="me-auto">Posted by: {teeTimeOwner.email}</strong>
+                        <strong className="me-auto">
+                            Posted by: {teeTimeOwner.email}
+                        </strong>
                 }
                 
                 {/* <small>11 mins ago</small> */}

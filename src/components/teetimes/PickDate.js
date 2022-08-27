@@ -7,9 +7,9 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DatePicker } from '@mui/x-date-pickers';
 
 const PickDate = (props) => {
-    const { handleFormValueChange } = props
+    const { date, handleFormValueChange } = props
 
-    const [value, setValue] = React.useState(dayjs());
+    const [value, setValue] = React.useState(date ? date : dayjs());
 
     React.useEffect(() => {
         handleFormValueChange('date', value)

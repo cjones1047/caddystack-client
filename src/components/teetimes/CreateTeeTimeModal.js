@@ -91,11 +91,28 @@ const CreateTeeTimeModal = (props) => {
             <Modal
                 size="lg"
                 show={showAddTeeTimeModal}
-                onHide={() => setShowAddTeeTimeModal(false)}
+                onHide={() => {
+                    setShowAddTeeTimeModal(false)
+                    setFormState({
+                        date: '',
+                        time: '',
+                        golfers: '',
+                        carts: '',
+                        askPrice: '',
+                        increment: '',
+                        courseId: courseDetails.courseId,
+                        courseName: courseDetails.name
+                    })
+                }}
                 backdrop={'static'}
             >
                 <Modal.Header closeButton
-                    style={{ backgroundColor: 'rgb(177, 177, 177)' }} />
+                    style={{ backgroundColor: 'rgb(177, 177, 177)' }}
+                >
+                        <strong>
+                            Post A New Tee Time
+                        </strong>
+                </Modal.Header>
                 <Modal.Body
                     style={{ backgroundColor: 'whitesmoke' }}
                 >

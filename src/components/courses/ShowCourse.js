@@ -264,6 +264,7 @@ const ShowCourse = (props) => {
                             msgAlert={msgAlert}
                             courseDetails={courseDetails}
                             refreshThisCourse={refreshThisCourse}
+                            setRefreshThisCourse={setRefreshThisCourse}
                         />
                     </CardContent>
                 </Collapse>

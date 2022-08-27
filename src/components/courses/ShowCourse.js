@@ -197,9 +197,9 @@ const ShowCourse = (props) => {
                     </Typography>
                     <Typography sx={{ mb: 1.5 }} variant="body2">
                         {courseDetails.hours.map((timeframe, i) =>
-                            <section key={i}>
+                            <div key={i}>
                                 {timeframe}
-                            </section>
+                            </div>
                         )}
                     </Typography>
                 </CardContent>

@@ -10,6 +10,7 @@ import { IconButton } from '@mui/material';
 
 import { getTeeTimeOwner } from '../../api/auth';
 import { signOutSuccess } from '../shared/AutoDismissAlert/messages';
+import EditTeeTime from './EditTeeTime';
 
 const TeeTimeToast = (props) => {
 
@@ -63,16 +64,10 @@ const TeeTimeToast = (props) => {
                 {user && teeTimeOwner._id === user._id 
                     ?
                         <strong className="me-auto">
-                            <IconButton
-                                // style={{height: '30px'}}
-                                aria-label="account of current user"
-                                aria-controls="menu-appbar"
-                                aria-haspopup="true"
-                                // onClick={handleOpenNavMenu}
-                                color="inherit"
-                            >
-                                <EditTwoToneIcon />
-                            </IconButton>
+                            <EditTeeTime
+                                user={user}
+                                teetime={teetime}
+                            />
                         </strong>
                         
                     :
@@ -82,9 +77,27 @@ const TeeTimeToast = (props) => {
                 {/* <small>11 mins ago</small> */}
             </Toast.Header>
             <Toast.Body
-                style={{color: 'white'}}
+                style={{color: 'white', fontWeight: 'bold'}}
             >
-                Reservation info here...
+                <div>
+                    Date: {teetime.date}
+                </div>
+                <div>
+                    Time: {teetime.time}
+                </div>
+                <div>
+                    {teetime.golfers} golfers
+                </div>
+                <div>
+                    {teetime.carts} carts
+                </div>
+                <div>
+                    Current bid: ${teetime.askPrice}.00
+                </div>
+                <div>
+                    Bid increments set at ${teetime.increment}.00
+                </div>
+
             </Toast.Body>
         </Toast>
     );

@@ -121,7 +121,7 @@ const CourseTeeTimesList = (props) => {
     })
 
 	return (
-        <ToastContainer>
+        <ToastContainer style={{width: '100%', display: 'flex', gap: '7.5px 15px', justifyContent: 'center', flexWrap: 'wrap'}}>
             {teeTimeList}
         </ToastContainer>
 	)

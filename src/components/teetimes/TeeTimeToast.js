@@ -5,7 +5,11 @@ import Row from 'react-bootstrap/Row';
 import Toast from 'react-bootstrap/Toast';
 import Spinner from 'react-bootstrap/Spinner';
 
+import EditTwoToneIcon from '@mui/icons-material/EditTwoTone';
+import { IconButton } from '@mui/material';
+
 import { getTeeTimeOwner } from '../../api/auth';
+import { signOutSuccess } from '../shared/AutoDismissAlert/messages';
 
 const TeeTimeToast = (props) => {
 
@@ -45,17 +49,41 @@ const TeeTimeToast = (props) => {
     )
 
     return (
-        <Toast key={i} onClose={() => setShow(false)} show={show}>
-            <Toast.Header>
-                {/* <img
-                    src="holder.js/20x20?text=%20"
-                    className="rounded me-2"
-                    alt=""
-                /> */}
-                <strong className="me-auto">{teeTimeOwner.email}</strong>
+        <Toast 
+            key={i}
+            bg='success'
+            onClose={() => setShow(false)} 
+            show={show}
+            style={{width: '30%', height: 'fit-content'}}
+        >
+            <Toast.Header
+                style={{height: '50px'}}
+                closeButton={teeTimeOwner._id === user._id ? true : false}
+            >
+                {teeTimeOwner._id === user._id 
+                    ?
+                        <strong className="me-auto">
+                            <IconButton
+                                // style={{height: '30px'}}
+                                aria-label="account of current user"
+                                aria-controls="menu-appbar"
+                                aria-haspopup="true"
+                                // onClick={handleOpenNavMenu}
+                                color="inherit"
+                            >
+                                <EditTwoToneIcon />
+                            </IconButton>
+                        </strong>
+                        
+                    :
+                        <strong className="me-auto">{teeTimeOwner.email}</strong>
+                }
+                
                 {/* <small>11 mins ago</small> */}
             </Toast.Header>
-            <Toast.Body>
+            <Toast.Body
+                style={{color: 'white'}}
+            >
                 Reservation info here...
             </Toast.Body>
         </Toast>

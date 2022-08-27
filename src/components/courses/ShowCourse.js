@@ -2,7 +2,7 @@ import './ShowCourse.css'
 
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 import * as React from 'react';
 import { styled } from '@mui/material/styles';
@@ -50,11 +50,15 @@ const ShowCourse = (props) => {
     const [expanded, setExpanded] = useState(false);
     const [showAddTeeTimeModal, setShowAddTeeTimeModal] = useState(false)
 
+    const navigate = useNavigate()
+
 	// console.log('props in ShowCourse:', props)
     console.log('Course details: ', courseDetails)
 
     useEffect(() => {
         console.log('ShowCourse mounted')
+        if(!courseToShow) navigate('/find-a-course')
+        else {
         getShowCourse(user ? user._id : null, courseToShow.courseId)
             // .then()
             .then(course => setCourseDetails(course.data.course))
@@ -94,6 +98,7 @@ const ShowCourse = (props) => {
                         console.log(err)
                     })
             })
+        }
     }, [refreshThisCourse])
 
     const addToMyCourses = (e) => {
@@ -191,10 +196,10 @@ const ShowCourse = (props) => {
                         Hours:
                     </Typography>
                     <Typography sx={{ mb: 1.5 }} variant="body2">
-                        {courseDetails.hours.map(timeframe =>
-                            <div>
+                        {courseDetails.hours.map((timeframe, i) =>
+                            <section key={i}>
                                 {timeframe}
-                            </div>
+                            </section>
                         )}
                     </Typography>
                 </CardContent>

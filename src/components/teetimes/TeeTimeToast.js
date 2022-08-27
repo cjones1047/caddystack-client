@@ -14,7 +14,7 @@ import { signOutSuccess } from '../shared/AutoDismissAlert/messages';
 const TeeTimeToast = (props) => {
 
     const {
-        i,
+        key,
         teetime,
         user,
         msgAlert,
@@ -50,7 +50,7 @@ const TeeTimeToast = (props) => {
 
     return (
         <Toast 
-            key={i}
+            key={key}
             bg='success'
             onClose={() => setShow(false)} 
             show={show}
@@ -58,9 +58,9 @@ const TeeTimeToast = (props) => {
         >
             <Toast.Header
                 style={{height: '50px'}}
-                closeButton={teeTimeOwner._id === user._id ? true : false}
+                closeButton={user && teeTimeOwner._id === user._id ? true : false}
             >
-                {teeTimeOwner._id === user._id 
+                {user && teeTimeOwner._id === user._id 
                     ?
                         <strong className="me-auto">
                             <IconButton
@@ -76,7 +76,7 @@ const TeeTimeToast = (props) => {
                         </strong>
                         
                     :
-                        <strong className="me-auto">{teeTimeOwner.email}</strong>
+                        <strong className="me-auto">Posted by: {teeTimeOwner.email}</strong>
                 }
                 
                 {/* <small>11 mins ago</small> */}

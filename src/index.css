@@ -1,3 +1,10 @@
+@font-face {
+  font-family: aubrey;
+  src: 
+    url('../src/fonts/AUBREY1__.TTF')
+    format('truetype');
+}
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -11,3 +18,7 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+/* html {
+  font-family: aubrey !important;
+} */

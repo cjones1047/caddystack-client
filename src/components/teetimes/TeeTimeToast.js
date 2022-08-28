@@ -7,7 +7,7 @@ import Spinner from 'react-bootstrap/Spinner';
 
 
 import EditTwoToneIcon from '@mui/icons-material/EditTwoTone';
-import { IconButton } from '@mui/material';
+import { IconButton, Divider } from '@mui/material';
 
 import { getTeeTimeOwner } from '../../api/auth';
 import { deleteTeetime } from '../../api/teetime';
@@ -30,6 +30,8 @@ const TeeTimeToast = (props) => {
     const [show, setShow] = useState(true);
     const [teeTimeOwner, setTeeTimeOwner] = useState(null)
 
+    console.log('States in TeeTimeToast: ', show, teeTimeOwner)
+
     useEffect(() => {
         getTeeTimeOwner(teetime.owner)
             .then(res => {
@@ -37,8 +39,6 @@ const TeeTimeToast = (props) => {
             })
             .catch(err => console.log(err))
     }, [refreshThisCourse])
-    
-    console.log('States in TeeTimeToast: ', show, teeTimeOwner)
 
     const handleDeleteTeeTime = () => {
         // e.preventDefault()
@@ -76,7 +76,7 @@ const TeeTimeToast = (props) => {
     return (
         <Toast 
             key={key}
-            bg='success'
+            bg='light'
             onClose={() => handleDeleteTeeTime()} 
             show={show}
             style={{width: '30%', minWidth: '185px', height: 'fit-content'}}
@@ -104,14 +104,15 @@ const TeeTimeToast = (props) => {
                 {/* <small>11 mins ago</small> */}
             </Toast.Header>
             <Toast.Body
-                style={{color: 'white', fontWeight: 'bold'}}
+                style={{color: 'black', fontWeight: 'bold'}}
             >
-                <div>
-                    Date: {teetime.date}
-                </div>
-                <div>
-                    Time: {teetime.time}
-                </div>
+                <h2>
+                    {new Date(teetime.date).toDateString()}
+                </h2>
+                <Divider />
+                <h3 style={{marginTop: '10px'}}>
+                    {new Date(teetime.time).toLocaleTimeString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true })}
+                </h3>
                 <div>
                     {teetime.golfers} golfers
                 </div>

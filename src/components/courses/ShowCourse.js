@@ -49,6 +49,8 @@ const ShowCourse = (props) => {
     const [refreshThisCourse, setRefreshThisCourse] = useState(true)
     const [expanded, setExpanded] = useState(false);
     const [showAddTeeTimeModal, setShowAddTeeTimeModal] = useState(false)
+    const [userAlreadyPosted, setUserAlreadyPosted] = useState(false)
+    const [showPostTeeTimeButton, setShowPostTeeTimeButton] = useState(true)
 
     const navigate = useNavigate()
 
@@ -152,7 +154,7 @@ const ShowCourse = (props) => {
     }
 
     const handleExpandClick = () => {
-        setExpanded(!expanded);
+        setExpanded(!expanded)
     };
 
     if (!courseDetails) return (
@@ -207,16 +209,7 @@ const ShowCourse = (props) => {
                     {user
                         ?   
                             <Stack spacing={0} style={{margin: 2, justifyContent: 'left'}}>
-                                <CreateTeeTimeModal 
-                                    user={user}
-                                    msgAlert={msgAlert}
-                                    courseDetails={courseDetails}
-                                    refreshThisCourse={refreshThisCourse}
-                                    setRefreshThisCourse={setRefreshThisCourse}
-                                    showAddTeeTimeModal={showAddTeeTimeModal}
-                                    setShowAddTeeTimeModal={setShowAddTeeTimeModal}
-                                    setExpanded={setExpanded}
-                                />
+                                
                                 {courseInDatabase && courseDetails.owner && courseDetails.owner === user._id
                                     ?
                                     <DeleteCourseButton
@@ -227,9 +220,25 @@ const ShowCourse = (props) => {
                                     <CreateCourseButton
                                         user={user}
                                         addToMyCourses={addToMyCourses}
-
                                     />
                                 }
+
+                                {showPostTeeTimeButton
+                                    ?
+                                    <CreateTeeTimeModal
+                                        user={user}
+                                        msgAlert={msgAlert}
+                                        courseDetails={courseDetails}
+                                        refreshThisCourse={refreshThisCourse}
+                                        setRefreshThisCourse={setRefreshThisCourse}
+                                        showAddTeeTimeModal={showAddTeeTimeModal}
+                                        setShowAddTeeTimeModal={setShowAddTeeTimeModal}
+                                        setExpanded={setExpanded}
+                                    />
+                                    :
+                                    null
+                                }
+                            
                             </Stack>
                             // <div style={{display: 'block'}}>
                                 
@@ -258,7 +267,7 @@ const ShowCourse = (props) => {
                         <ExpandMoreIcon />
                     </ExpandMore>
                 </CardActions>
-                <Collapse in={expanded} timeout="auto" unmountOnExit>
+                <Collapse in={expanded} timeout="auto">
                     <CardContent>
                         < CourseTeeTimesList
                             user={user}
@@ -266,6 +275,9 @@ const ShowCourse = (props) => {
                             courseDetails={courseDetails}
                             refreshThisCourse={refreshThisCourse}
                             setRefreshThisCourse={setRefreshThisCourse}
+                            setUserAlreadyPosted={setUserAlreadyPosted}
+                            expanded={expanded}
+                            setShowPostTeeTimeButton={setShowPostTeeTimeButton}
                         />
                     </CardContent>
                 </Collapse>

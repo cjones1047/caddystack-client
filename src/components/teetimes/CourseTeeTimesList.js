@@ -22,7 +22,10 @@ const CourseTeeTimesList = (props) => {
         msgAlert,
         courseDetails,
         refreshThisCourse,
-        setRefreshThisCourse
+        setRefreshThisCourse,
+        setUserAlreadyPosted,
+        expanded,
+        setShowPostTeeTimeButton
      } = props
 
 	// console.log('props in Home:', props)
@@ -116,6 +119,9 @@ const CourseTeeTimesList = (props) => {
                 msgAlert={msgAlert}
                 refreshThisCourse={refreshThisCourse}
                 setRefreshThisCourse={setRefreshThisCourse}
+                setUserAlreadyPosted={setUserAlreadyPosted}
+                expanded={expanded}
+                setShowPostTeeTimeButton={setShowPostTeeTimeButton}
             />
         )
     })

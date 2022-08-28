@@ -22,7 +22,10 @@ const TeeTimeToast = (props) => {
         user,
         msgAlert,
         refreshThisCourse,
-        setRefreshThisCourse
+        setRefreshThisCourse,
+        setUserAlreadyPosted,
+        expanded,
+        setShowPostTeeTimeButton
     } = props
 
     console.log('This teetime: ', teetime)
@@ -36,6 +39,7 @@ const TeeTimeToast = (props) => {
                 setTeeTimeOwner(res.data.owner)
             })
             .catch(err => console.log(err))
+        if(user && teetime.owner === user._id) setShowPostTeeTimeButton(false)
     }, [refreshThisCourse])
     
     console.log('States in TeeTimeToast: ', show, teeTimeOwner)
@@ -52,9 +56,14 @@ const TeeTimeToast = (props) => {
             //         variant: 'success'
             //     })
             // })
-            .then(setShow(false))
+            .then(() => {
+                if(teeTimeOwner === user._id) {
+                    setShowPostTeeTimeButton(true)
+                }
+            })
             .then(setRefreshThisCourse(prev => !prev))
             // on failure, send a failure message
+            .then(setShow(false))
             .catch(err => {
                 msgAlert({
                     heading: 'Error',

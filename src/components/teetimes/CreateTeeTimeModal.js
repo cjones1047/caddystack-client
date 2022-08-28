@@ -98,7 +98,7 @@ const CreateTeeTimeModal = (props) => {
                 variant='outlined'
                 size="small"
                 color='success'
-                style={{fontWeight: 'bold', marginBottom: 10}}
+                style={{fontWeight: 'bold', marginTop: 10}}
                 onClick={() => setShowAddTeeTimeModal(true)}
                 >
                     Post a new tee time

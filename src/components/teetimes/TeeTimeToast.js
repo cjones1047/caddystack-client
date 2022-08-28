@@ -10,6 +10,7 @@ import EditTwoToneIcon from '@mui/icons-material/EditTwoTone';
 import { IconButton } from '@mui/material';
 
 import { getTeeTimeOwner } from '../../api/auth';
+import { deleteTeetime } from '../../api/teetime';
 import { signOutSuccess } from '../shared/AutoDismissAlert/messages';
 import EditTeeTime from './EditTeeTime';
 
@@ -29,8 +30,6 @@ const TeeTimeToast = (props) => {
     const [show, setShow] = useState(true);
     const [teeTimeOwner, setTeeTimeOwner] = useState(null)
 
-    
-
     useEffect(() => {
         getTeeTimeOwner(teetime.owner)
             .then(res => {
@@ -40,6 +39,30 @@ const TeeTimeToast = (props) => {
     }, [refreshThisCourse])
     
     console.log('States in TeeTimeToast: ', show, teeTimeOwner)
+
+    const handleDeleteTeeTime = () => {
+        // e.preventDefault()
+
+        deleteTeetime(user, teetime._id)
+            // on success, send a success message
+            // .then(() => {
+            //     msgAlert({
+            //         heading: 'Success',
+            //         message: messages.removeBookSuccess,
+            //         variant: 'success'
+            //     })
+            // })
+            .then(setShow(false))
+            .then(setRefreshThisCourse(prev => !prev))
+            // on failure, send a failure message
+            .catch(err => {
+                msgAlert({
+                    heading: 'Error',
+                    message: "Couldn't delete tee time...",
+                    variant: 'danger'
+                })
+            })
+    }
 
     if(!teeTimeOwner) return (
         <div style={{display: 'flex', justifyContent: 'center',
@@ -54,7 +77,7 @@ const TeeTimeToast = (props) => {
         <Toast 
             key={key}
             bg='success'
-            onClose={() => setShow(false)} 
+            onClose={() => handleDeleteTeeTime()} 
             show={show}
             style={{width: '30%', minWidth: '185px', height: 'fit-content'}}
         >

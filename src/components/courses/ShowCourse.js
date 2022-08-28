@@ -215,6 +215,7 @@ const ShowCourse = (props) => {
                                     setRefreshThisCourse={setRefreshThisCourse}
                                     showAddTeeTimeModal={showAddTeeTimeModal}
                                     setShowAddTeeTimeModal={setShowAddTeeTimeModal}
+                                    setExpanded={setExpanded}
                                 />
                                 {courseInDatabase && courseDetails.owner && courseDetails.owner === user._id
                                     ?

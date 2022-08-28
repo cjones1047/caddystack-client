@@ -4,19 +4,19 @@ import TextField from '@mui/material/TextField';
 import Stack from '@mui/material/Stack';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import { DatePicker } from '@mui/x-date-pickers';
+import { DesktopDatePicker } from '@mui/x-date-pickers';
 
 const PickDate = (props) => {
     const { date, handleFormValueChange } = props
 
-    const [value, setValue] = React.useState(date ? date : dayjs());
+    const [value, setValue] = React.useState(date);
 
     React.useEffect(() => {
         handleFormValueChange('date', value)
-    }, [])
+    }, [value])
 
     const handleChange = (newValue) => {
-        // console.log(newValue)
+        console.log('PickDate changed')
         setValue(newValue)
         handleFormValueChange('date', newValue)
     }
@@ -24,16 +24,14 @@ const PickDate = (props) => {
     return (
         <LocalizationProvider dateAdapter={AdapterDayjs}>
             <Stack style={{width: '45%'}} >
-                <DatePicker
-                    views={['day']}
+                <DesktopDatePicker
+                    // views={['day']}
                     // name='date'
                     value={value}
                     label="Day of tee-off?"
-                    // inputFormat='MM/DD/YYYY'
                     onChange={handleChange}
-                    minDate={new Date()}
-                    renderInput={(params) => <TextField {...params} helperText={null} />}
-
+                    disablePast
+                    renderInput={(params) => <TextField {...params} />}
                 />
             </Stack>
         </LocalizationProvider>

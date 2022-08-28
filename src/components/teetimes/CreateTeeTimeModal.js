@@ -1,6 +1,6 @@
 import { Modal } from 'react-bootstrap';
 
-import { React, useState } from 'react';
+import { React, useEffect, useState } from 'react';
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
@@ -21,13 +21,14 @@ const CreateTeeTimeModal = (props) => {
         courseDetails,
         setRefreshThisCourse,
         showAddTeeTimeModal,
-        setShowAddTeeTimeModal
+        setShowAddTeeTimeModal,
+        setExpanded
      } = props
 
 	// console.log('props in Home:', props)
     
     const [formState, setFormState] = useState({
-        date: '',
+        date: dayjs().startOf('day'),
         time: '',
         golfers: '',
         carts: '',
@@ -37,7 +38,21 @@ const CreateTeeTimeModal = (props) => {
         courseName: courseDetails.name
     });
 
+    const [formFilled, setFormFilled] = useState(false)
+
     console.log('CreateTeeTimeModal form state: ', formState)
+
+    useEffect(() => {
+        if(
+            formState.date &&
+            formState.time &&
+            formState.golfers &&
+            formState.carts &&
+            formState.askPrice &&
+            formState.increment
+        ) setFormFilled(true)
+        else setFormFilled(false)
+    }, [formState])
 
     const handleFormValueChange = (name, newValue) => {
         // console.log(e)
@@ -63,7 +78,8 @@ const CreateTeeTimeModal = (props) => {
                 })
                 setRefreshThisCourse(prev => !prev)
             })
-            // .then()
+            .then(setShowAddTeeTimeModal(false))
+            .then(setExpanded(true))
             // if there is an error, tell the user about it
             .catch(() => {
                 msgAlert({
@@ -89,12 +105,12 @@ const CreateTeeTimeModal = (props) => {
             </Button>
 
             <Modal
-                size="lg"
+                size="md"
                 show={showAddTeeTimeModal}
                 onHide={() => {
                     setShowAddTeeTimeModal(false)
                     setFormState({
-                        date: '',
+                        date: dayjs().startOf('day'),
                         time: '',
                         golfers: '',
                         carts: '',
@@ -137,6 +153,7 @@ const CreateTeeTimeModal = (props) => {
                             color='primary'
                             style={{ fontWeight: 'bold', marginBottom: 10 }}
                             onClick={handleFormSubmission}
+                            disabled={formFilled ? false : true}
                         >
                             Post tee time
                         </Button>

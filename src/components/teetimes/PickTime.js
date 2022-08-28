@@ -6,17 +6,17 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { TimePicker } from '@mui/x-date-pickers';
 
-const PickDate = (props) => {
+const PickTime = (props) => {
     const { time, handleFormValueChange } = props
 
     const [value, setValue] = React.useState(time ? time : dayjs());
 
     React.useEffect(() => {
         handleFormValueChange('time', value)
-    }, [])
+    }, [value])
 
     const handleChange = (newValue) => {
-        // console.log(newValue)
+        console.log('PickTime changed')
         setValue(newValue)
         handleFormValueChange('time', newValue)
     }
@@ -38,4 +38,4 @@ const PickDate = (props) => {
     );
 }
 
-export default PickDate
+export default PickTime

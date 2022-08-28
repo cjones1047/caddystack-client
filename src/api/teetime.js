@@ -26,7 +26,7 @@ export const createTeetime = (user, newTeetime) => {
 
 // UPDATE
 export const updateTeetime = (user, updatedTeetime) => {
-    console.log('updateTeetime in API was hit')
+    console.log('updateTeetime in API hit')
     console.log('this is user: ', user)
     console.log('this is updatedBook: ', updatedTeetime)
 	return axios({
@@ -37,6 +37,18 @@ export const updateTeetime = (user, updatedTeetime) => {
 		},
 		data: {
 			teetime: updatedTeetime
+		}
+	})
+}
+
+// DELETE
+export const deleteTeetime = (user, teetimeId) => {
+    console.log('deleteTeetime in API hit')
+	return axios({
+		url:`${apiUrl}/teetime/${teetimeId}`,
+		method: 'DELETE',
+		headers: {
+			Authorization: `Token token=${user.token}`
 		}
 	})
 }

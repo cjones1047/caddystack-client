@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom'
-import { React, useState } from 'react';
+import { React, useState, useEffect } from 'react';
 
 import { Modal } from 'react-bootstrap';
 
@@ -40,8 +40,21 @@ const EditTeeTime = (props) => {
         _id: teetime._id
     });
     const [showEditTeeTimeModal, setShowEditTeeTimeModal] = useState(false)
+    const [formFilled, setFormFilled] = useState(false)
 
     console.log('EditTeeTime form state: ', formState)
+
+    useEffect(() => {
+        if(
+            formState.date &&
+            formState.time &&
+            formState.golfers &&
+            formState.carts &&
+            formState.askPrice &&
+            formState.increment
+            ) setFormFilled(true)
+        else setFormFilled(false)
+    }, [formState])
 
     const handleFormValueChange = (name, newValue) => {
         // console.log(e)
@@ -58,13 +71,13 @@ const EditTeeTime = (props) => {
 
         updateTeetime(user, formState)
             // on success, send a success message
-            .then(() => {
-                msgAlert({
-                    heading: 'Done',
-                    message: 'Tee time updated.',
-                    variant: 'success'
-                })
-            })
+            // .then(() => {
+            //     msgAlert({
+            //         heading: 'Done',
+            //         message: 'Tee time updated.',
+            //         variant: 'success'
+            //     })
+            // })
             // then navigate to index
             // .then(setUpdatedCommentList)
             // .then(() => {
@@ -98,7 +111,7 @@ const EditTeeTime = (props) => {
             </IconButton>
 
             <Modal
-                size="lg"
+                size="md"
                 show={showEditTeeTimeModal}
                 onHide={() => {
                     setShowEditTeeTimeModal(false)
@@ -147,6 +160,7 @@ const EditTeeTime = (props) => {
                             color='primary'
                             style={{ fontWeight: 'bold', marginBottom: 10 }}
                             onClick={handleConfirmEdits}
+                            disabled={formFilled ? false : true}
                         >
                             Confirm Changes
                         </Button>

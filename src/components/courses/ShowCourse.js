@@ -25,6 +25,7 @@ import MoreVertIcon from '@mui/icons-material/MoreVert';
 import Spinner from 'react-bootstrap/Spinner'
 
 import { getShowCourse, createCourse, deleteCourse } from "../../api/course";
+import { getCourseTeeTimes } from '../../api/teetime';
 import CreateCourseButton from "../shared/CreateCourseButton";
 import DeleteCourseButton from "../shared/DeleteCourseButton";
 import CreateTeeTimeModal from '../teetimes/CreateTeeTimeModal';
@@ -49,8 +50,7 @@ const ShowCourse = (props) => {
     const [refreshThisCourse, setRefreshThisCourse] = useState(true)
     const [expanded, setExpanded] = useState(false);
     const [showAddTeeTimeModal, setShowAddTeeTimeModal] = useState(false)
-    const [userAlreadyPosted, setUserAlreadyPosted] = useState(false)
-    const [showPostTeeTimeButton, setShowPostTeeTimeButton] = useState(true)
+    const [userTeeTimes, setUserTeeTimes] = useState([])
 
     const navigate = useNavigate()
 
@@ -101,6 +101,18 @@ const ShowCourse = (props) => {
                     })
             })
         }
+
+        getCourseTeeTimes(courseToShow.courseId)
+            .then(res => {
+                const teetimesUserOwns = res.data.teetimes.filter(teetime => {
+                    if(user && user._id === teetime.owner) return teetime
+                })
+                setUserTeeTimes(teetimesUserOwns)
+            })
+            .catch(err => {
+                console.log(err)
+            })
+
     }, [refreshThisCourse])
 
     const addToMyCourses = (e) => {
@@ -223,13 +235,12 @@ const ShowCourse = (props) => {
                                     />
                                 }
 
-                                {showPostTeeTimeButton
+                                {userTeeTimes.length === 0 && expanded
                                     ?
                                     <CreateTeeTimeModal
                                         user={user}
                                         msgAlert={msgAlert}
                                         courseDetails={courseDetails}
-                                        refreshThisCourse={refreshThisCourse}
                                         setRefreshThisCourse={setRefreshThisCourse}
                                         showAddTeeTimeModal={showAddTeeTimeModal}
                                         setShowAddTeeTimeModal={setShowAddTeeTimeModal}
@@ -275,9 +286,6 @@ const ShowCourse = (props) => {
                             courseDetails={courseDetails}
                             refreshThisCourse={refreshThisCourse}
                             setRefreshThisCourse={setRefreshThisCourse}
-                            setUserAlreadyPosted={setUserAlreadyPosted}
-                            expanded={expanded}
-                            setShowPostTeeTimeButton={setShowPostTeeTimeButton}
                         />
                     </CardContent>
                 </Collapse>

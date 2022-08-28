@@ -2,8 +2,16 @@ import apiUrl from '../apiConfig'
 import axios from 'axios'
 
 // INDEX
-export const getAllBooks = () => {
-    return axios(`${apiUrl}/books`)
+export const getAllMyCourses = (user) => {
+    console.log('getAllMyCourses hit')
+    // return axios(`${apiUrl}/course`)
+    return axios({
+		url: apiUrl + `/course`,
+		method: 'GET',
+		headers: {
+			Authorization: `Token token=${user.token}`,
+		}
+	})
 }
 
 // SHOW

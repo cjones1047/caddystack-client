@@ -16,6 +16,7 @@ import SignOut from './components/auth/SignOut'
 import ChangePassword from './components/auth/ChangePassword'
 import FindCourse from './components/courses/FindCourse'
 import ShowCourse from './components/courses/ShowCourse'
+import MyCourses from './components/courses/MyCourses'
 
 const App = () => {
 
@@ -69,6 +70,17 @@ const App = () => {
 							setCourseToShow={setCourseToShow}
 						/>
 					} 
+				/>
+				<Route
+					path='/my-courses'
+					element={
+						<RequireAuth user={user}>
+							<MyCourses
+								user={user}
+								setCourseToShow={setCourseToShow}
+							/>
+						</RequireAuth>
+					}
 				/>
 				<Route 
 					path='/show-course' 

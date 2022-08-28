@@ -3,6 +3,7 @@ import './Header.css'
 // import Nav from 'react-bootstrap/Nav'
 // import Navbar from 'react-bootstrap/Navbar'
 import { useNavigate } from 'react-router-dom'
+import { useEffect } from 'react';
 
 import * as React from 'react';
 import AppBar from '@mui/material/AppBar';
@@ -36,8 +37,8 @@ const unauthenticatedOptions = [
 	{str: 'Sign In', link: 'sign-in'}
 ]
 
-const pages = [
-	{ str: 'Find A Course', link: 'find-a-course'}
+let pages = [
+	{ str: 'Find A Course', link: 'find-a-course'},
 ]
 
 const Header = ({ user }) => {
@@ -45,6 +46,22 @@ const Header = ({ user }) => {
 	const [anchorElUser, setAnchorElUser] = React.useState(null);
 
 	let navigate = useNavigate()
+
+	useEffect(() => {
+		const userOptions = [
+			{ str: 'Find A Course', link: 'find-a-course' },
+			{ str: 'My Courses', link: 'my-courses' }
+		]
+		
+		const userNullOptions = [
+			{ str: 'Find A Course', link: 'find-a-course' }
+		]
+
+		if(user && user._id) {
+			pages = userOptions
+		} else pages = userNullOptions
+
+	}, [user])
 
 	const handleOpenNavMenu = (event) => {
 		setAnchorElNav(event.currentTarget);
@@ -122,7 +139,7 @@ const Header = ({ user }) => {
 											handleCloseNavMenu()
 											navigate(`/${pageLink}`, {replace: false})
 										}}
-										divider
+										divider={i > (pages.length) - 2 ? false : true}
 										style={{width: '70vw', maxWidth: '300px'}}
 										>
 											<Typography

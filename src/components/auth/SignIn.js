@@ -42,7 +42,7 @@ const SignIn = (props) => {
 			// 		variant: 'success',
 			// 	})
 			// )
-			.then(() => navigate('/find-a-course'))
+			.then(() => navigate('/my-courses'))
 			.catch((error) => {
                 setEmail('')
                 setPassword('')

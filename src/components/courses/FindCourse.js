@@ -121,7 +121,7 @@ const FindCourse = (props) => {
                                 <ListItem 
                                     key={i} 
                                     button 
-                                    divider
+                                    divider={i > (res.data.courses.length) - 2 ? false : true}
                                     onClick={(e) => handleCourseClick(e, course.name, course.zip_code, courseId)}
                                     >
                                     <ListItemText 

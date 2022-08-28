@@ -1,12 +1,13 @@
 import './FindCourse.css'
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import TextField from '@mui/material/TextField';
 import { List, ListItem, ListItemText, Divider } from '@mui/material';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { Spinner } from 'react-bootstrap';
 
 const theme = createTheme({
     status: {
@@ -29,8 +30,12 @@ const FindCourse = (props) => {
 	// console.log('props in FindCourse:', props)
     let navigate = useNavigate()
 
+    const [searching, setSearching] = useState(false)
+    const [invalidZip, setInvalidZip] = useState(false)
     const [searchedZip, setSearchedZip] = useState('')
     const [searchedCourseList, setSearchedCourseList] = useState('')
+
+    console.log(parseInt(searchedZip).toString().length)
 
     const handleCourseClick = (e, courseName, courseZip, courseId) => {
         e.preventDefault()
@@ -50,15 +55,19 @@ const FindCourse = (props) => {
         navigate('/show-course', {replace: false})
     }
 
-    const handleZipSubmit = (e) => {
-        e.preventDefault()
+    const handleZipSubmit = () => {
+        // e.preventDefault()
 
         // console.log('Zip in searchedZip state: ', searchedZip)
+
+        setSearching(true)
         
         const apiKey = process.env.REACT_APP_RAPIDAPI_API_KEY
 
         if(searchedZip.length !== 5) {
             console.log('Zip is not 5 characters')
+            setSearching(false)
+            setInvalidZip(true)
             return
         }
         // console.log(searchedZip)
@@ -82,6 +91,7 @@ const FindCourse = (props) => {
                 // console.log(res.data.length)
                 if(!res.data.length) {
                     console.log('Invalid zip')
+                    setInvalidZip(true)
                     return
                 }
                 const latitude = res.data[0].lat
@@ -125,12 +135,17 @@ const FindCourse = (props) => {
                             )
                         })
                         setSearchedCourseList(courses)
+                        setSearching(false)
+                        setInvalidZip(false)
                     })
                     .catch(err => {
                         console.error(err);
+                        setSearching(false)
                     });
             })
+            .then(setSearching(false))
             .catch(err => {
+                setSearching(false)
                 console.error(err)
             });
     }
@@ -139,11 +154,32 @@ const FindCourse = (props) => {
         setSearchedZip(e.target.value)
     }
 
+    useEffect(() => {
+        if (parseInt(searchedZip).toString().length !== 5 &&
+            parseInt(searchedZip).toString().length > 0) {
+            setInvalidZip(true)
+        }
+        if (searchedZip.length === 0) setInvalidZip(false)
+
+        if (parseInt(searchedZip).toString().length === 5) {
+            handleZipSubmit()
+        }
+    }, [searchedZip])
+
+    // if(!searchedCourseList && parseInt(searchedZip).toString().length === 5) {
+    //         return (
+    //         <div className="show-course-container">
+    //             <Spinner animation="border" role="status" variant="light">
+    //                 <span className="visually-hidden">Loading...</span>
+    //             </Spinner>
+    //         </div>
+    //     )}
+
 	return (
         <>
             <div className='find-course-form-container'>
                 <form 
-                    onSubmit={handleZipSubmit}
+                    onSubmit={(e)=>{e.preventDefault()}}
                     autoComplete='off'
                     >
                     <ThemeProvider theme={theme}>
@@ -157,10 +193,21 @@ const FindCourse = (props) => {
                             label="Find a course here"
                             InputLabelProps={{ style: { fontSize: 30 } }}
                             placeholder="Enter zip code..."
+                            error={invalidZip ? true : false}
                         />
                     </ThemeProvider>
                 </form>
             </div>
+            {searching 
+                ?
+                    <div className="show-course-container">
+                        <Spinner animation="border" role="status" variant="light">
+                            <span className="visually-hidden">Loading...</span>
+                        </Spinner>
+                    </div>
+                :
+                    null
+            }
             {searchedCourseList
                 ?
                     <div className='find-course-form-container'>

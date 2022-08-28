@@ -6,6 +6,7 @@ import { Link, useNavigate } from 'react-router-dom'
 
 import * as React from 'react';
 import { styled } from '@mui/material/styles';
+import Button from '@mui/material/Button';
 import Card from '@mui/material/Card';
 import CardHeader from '@mui/material/CardHeader';
 import CardMedia from '@mui/material/CardMedia';
@@ -210,11 +211,19 @@ const ShowCourse = (props) => {
                         Hours:
                     </Typography>
                     <Typography sx={{ mb: 1.5 }} variant="body2">
-                        {courseDetails.hours.map((timeframe, i) =>
-                            <div key={i}>
-                                {timeframe}
-                            </div>
-                        )}
+                        {courseDetails.hours
+                            ?
+                                courseDetails.hours.map((timeframe, i) =>
+                                    <div key={i}>
+                                        {timeframe}
+                                    </div>
+                                )
+                            :
+                                <div>
+                                    COURSE PERMANENTLY CLOSED
+                                </div>
+                        }
+                        
                     </Typography>
                 </CardContent>
                 <CardActions disableSpacing>
@@ -262,21 +271,35 @@ const ShowCourse = (props) => {
                     {/* <IconButton aria-label="share">
                         <ShareIcon />
                     </IconButton> */}
-                    <ExpandMore
-                        expand={expanded}
-                        onClick={handleExpandClick}
-                        style={{borderRadius: '50px'}}
-                        aria-expanded={expanded}
-                        aria-label="show more"
-                    >
-                        {expanded === false
-                            ?
-                                <div style={{fontSize: '15px'}}>See tee times posted</div>
-                            :
-                                null
-                        }
-                        <ExpandMoreIcon />
-                    </ExpandMore>
+                    {courseDetails.hours
+                        ?
+                            <ExpandMore
+                                expand={expanded}
+                                onClick={handleExpandClick}
+                                style={{ borderRadius: '50px' }}
+                                aria-expanded={expanded}
+                                aria-label="show more"
+                            >
+                                {expanded === false
+                                    ?
+                                    <div style={{ fontSize: '15px' }}>See tee times posted</div>
+                                    :
+                                    null
+                                }
+                                <ExpandMoreIcon />
+                            </ExpandMore>
+                        :
+                            <Button
+                                variant='contained'
+                                size="small"
+                                color='primary'
+                                style={{ fontWeight: 'bold' }}
+                                onClick={() => navigate('/find-a-course')}
+                            >
+                                Find Another Course
+                            </Button>
+                    }
+                    
                 </CardActions>
                 <Collapse in={expanded} timeout="auto">
                     <CardContent>

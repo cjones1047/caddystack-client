@@ -1,4 +1,4 @@
-import { useNavigate } from 'react-router-dom'
+// import { useNavigate } from 'react-router-dom'
 import { React, useState, useEffect } from 'react';
 
 import { Modal } from 'react-bootstrap';
@@ -7,8 +7,6 @@ import EditTwoToneIcon from '@mui/icons-material/EditTwoTone';
 import { IconButton } from '@mui/material';
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import dayjs from 'dayjs';
 
 import PickDate from './PickDate';
 import PickTime from './PickTime';
@@ -26,7 +24,7 @@ const EditTeeTime = (props) => {
         teetime
     } = props
 
-    let navigate = useNavigate()
+    // let navigate = useNavigate()
 
     const [formState, setFormState] = useState({
         date: teetime.date,
@@ -72,25 +70,11 @@ const EditTeeTime = (props) => {
         e.preventDefault()
 
         updateTeetime(user, formState)
-            // on success, send a success message
-            // .then(() => {
-            //     msgAlert({
-            //         heading: 'Done',
-            //         message: 'Tee time updated.',
-            //         variant: 'success'
-            //     })
-            // })
-            // then navigate to index
-            // .then(setUpdatedCommentList)
-            // .then(() => {
-            //     navigate('/')
-            // })
-            // on failure, send a failure message
             .then(setShowEditTeeTimeModal(false))
             .then(setRefreshThisCourse(prev => !prev))
             .catch(err => {
                 // navigate('/')
-                // navigate back to home page if there's an error fetching
+                // ^^ navigate back to home page if there's an error fetching
                 msgAlert({
                     heading: 'Error',
                     message: "Couldn't update tee time...",

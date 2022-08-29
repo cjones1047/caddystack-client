@@ -53,7 +53,14 @@ const CourseTeeTimesList = (props) => {
 
 	return (
         <div className='scroll-horizontal'>
-            {teeTimeList}
+            {teeTimeList.length > 0 
+                ?
+                    teeTimeList
+                :
+                    <div style={{width: '100%', color: 'rgba(133, 133, 133, 0.8)', display: 'flex', justifyContent: 'center'}}>
+                        No tee times posted.
+                    </div>
+            }
         </div>
 	)
 }

@@ -19,12 +19,11 @@ import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import SportsGolfIcon from '@mui/icons-material/SportsGolf';
-import { Divider } from '@mui/material';
 
-const profileLinkStyle = {
-	color: 'black',
-	textDecoration: 'none'
-}
+// const profileLinkStyle = {
+// 	color: 'black',
+// 	textDecoration: 'none'
+// }
 
 const authenticatedOptions = [
 	{str: 'Change Password', link: 'change-password'},

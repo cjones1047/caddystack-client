@@ -1,38 +1,24 @@
 import './MyTeeTimes.css'
 
-import axios from "axios";
 import { useEffect, useState } from "react";
-import { Link, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 import * as React from 'react';
-import { styled } from '@mui/material/styles';
+// import { styled } from '@mui/material/styles';
 import Button from '@mui/material/Button';
-import { List, ListItem, ListItemText } from '@mui/material';
+// import { List, ListItem, ListItemText } from '@mui/material';
 import Card from '@mui/material/Card';
 import CardHeader from '@mui/material/CardHeader';
-import CardMedia from '@mui/material/CardMedia';
+// import CardMedia from '@mui/material/CardMedia';
 import CardContent from '@mui/material/CardContent';
 import CardActions from '@mui/material/CardActions';
-import Collapse from '@mui/material/Collapse';
+// import Collapse from '@mui/material/Collapse';
 import Divider from '@mui/material/Divider';
-import Avatar from '@mui/material/Avatar';
-import IconButton from '@mui/material/IconButton';
-import Stack from '@mui/material/Stack';
-import Typography from '@mui/material/Typography';
-import { red } from '@mui/material/colors';
-import FavoriteIcon from '@mui/icons-material/Favorite';
-import ShareIcon from '@mui/icons-material/Share';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import MoreVertIcon from '@mui/icons-material/MoreVert';
 
 import Spinner from 'react-bootstrap/Spinner'
 
-import { getAllMyCourses, deleteCourse } from "../../api/course";
+// import { getAllMyCourses, deleteCourse } from "../../api/course";
 import { getAllMyTeetimes, deleteTeetime } from '../../api/teetime';
-import CreateCourseButton from "../shared/CreateCourseButton";
-import DeleteCourseButton from "../shared/DeleteCourseButton";
-import CreateTeeTimeModal from '../teetimes/CreateTeeTimeModal';
-import CourseTeeTimesList from '../teetimes/CourseTeeTimesList';
 
 const MyTeeTimes = (props) => {
 	const {
@@ -41,7 +27,7 @@ const MyTeeTimes = (props) => {
     } = props
 
     const [teeTimeList, setTeeTimeList] = useState('')
-    const [refresh, setRefresh] = useState(true)
+    // const [refresh, setRefresh] = useState(true)
 
     const navigate = useNavigate()
 

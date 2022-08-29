@@ -1,14 +1,14 @@
 // import Button from 'react-bootstrap/Button';
 import Button from '@mui/material/Button';
-import { useNavigate } from 'react-router-dom'
+// import { useNavigate } from 'react-router-dom'
 
 const CreateCourseButton = (props) => {
     const { 
-        user, 
+        // user, 
         addToMyCourses
      } = props
 
-    let navigate = useNavigate()
+    // let navigate = useNavigate()
 
     return (
         <Button 

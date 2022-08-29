@@ -1,37 +1,17 @@
 import './MyCourses.css'
 
-import axios from "axios";
+// import axios from "axios";
 import { useEffect, useState } from "react";
-import { Link, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 import * as React from 'react';
-import { styled } from '@mui/material/styles';
+// import { styled } from '@mui/material/styles';
 import Button from '@mui/material/Button';
 import { List, ListItem, ListItemText } from '@mui/material';
-import Card from '@mui/material/Card';
-import CardHeader from '@mui/material/CardHeader';
-import CardMedia from '@mui/material/CardMedia';
-import CardContent from '@mui/material/CardContent';
-import CardActions from '@mui/material/CardActions';
-import Collapse from '@mui/material/Collapse';
-import Avatar from '@mui/material/Avatar';
-import IconButton from '@mui/material/IconButton';
-import Stack from '@mui/material/Stack';
-import Typography from '@mui/material/Typography';
-import { red } from '@mui/material/colors';
-import FavoriteIcon from '@mui/icons-material/Favorite';
-import ShareIcon from '@mui/icons-material/Share';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import MoreVertIcon from '@mui/icons-material/MoreVert';
 
 import Spinner from 'react-bootstrap/Spinner'
 
-import { getAllMyCourses, deleteCourse } from "../../api/course";
-import { getCourseTeeTimes } from '../../api/teetime';
-import CreateCourseButton from "../shared/CreateCourseButton";
-import DeleteCourseButton from "../shared/DeleteCourseButton";
-import CreateTeeTimeModal from '../teetimes/CreateTeeTimeModal';
-import CourseTeeTimesList from '../teetimes/CourseTeeTimesList';
+import { getAllMyCourses } from "../../api/course";
 import Note from './Note';
 
 // const ExpandMore = styled((props) => {
@@ -89,6 +69,21 @@ const MyCourses = (props) => {
                                                 {course.name}
                                         </Button>
 
+                                        <div style={{marginTop: '10px', marginBottom: '20px', display: 'flex', flexDirection: 'column'}}>
+                                            <div>
+                                                {course.address}
+                                            </div>
+
+                                            <div>
+                                                {course.phoneNumber}
+                                            </div>
+
+                                            <a href={course.website} rel="noreferrer" target="_blank" style={{flexWrap: 'wrap'}}>
+                                                {course.website}
+                                            </a>
+                                        </div>
+                                        
+
                                         <Note
                                             user={user}
                                             msgAlert={msgAlert}
@@ -125,35 +120,6 @@ const MyCourses = (props) => {
         //     })
 
     }, [user])
-
-    const deleteFromMyCourses = (e) => {
-        e.preventDefault()
-
-        // deleteCourse(user, courseDetails.courseId)
-        // // promise handling for createCourse here:
-        //     // send a success message to the user
-        //     .then(() => {
-        //         msgAlert({
-        //             heading: 'Done',
-        //             message: 'Course deleted from My Courses',
-        //             variant: 'success'
-        //         })
-        //         setRefreshThisCourse(prev => !prev)
-        //     })
-        //     // .then()
-        //     // if there is an error, tell the user about it
-        //     .catch(() => {
-        //         msgAlert({
-        //             heading: 'Error',
-        //             message: 'Something went wrong',
-        //             variant: 'danger'
-        //         })
-        //     })
-    }
-
-    // const handleExpandClick = () => {
-    //     setExpanded(!expanded)
-    // };
 
     const handleCourseClick = (e, courseId) => {
         e.preventDefault()

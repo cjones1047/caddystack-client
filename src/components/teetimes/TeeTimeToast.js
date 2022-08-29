@@ -1,17 +1,17 @@
 import React, { useEffect, useState } from 'react';
 // import Button from 'react-bootstrap/Button';
-import Col from 'react-bootstrap/Col';
-import Row from 'react-bootstrap/Row';
+// import Col from 'react-bootstrap/Col';
+// import Row from 'react-bootstrap/Row';
 import Toast from 'react-bootstrap/Toast';
 import Spinner from 'react-bootstrap/Spinner';
 
 
-import EditTwoToneIcon from '@mui/icons-material/EditTwoTone';
-import { IconButton, Divider, Button } from '@mui/material';
+// import EditTwoToneIcon from '@mui/icons-material/EditTwoTone';
+import { Divider } from '@mui/material';
 
 import { getTeeTimeOwner } from '../../api/auth';
 import { deleteTeetime } from '../../api/teetime';
-import { signOutSuccess } from '../shared/AutoDismissAlert/messages';
+// import { signOutSuccess } from '../shared/AutoDismissAlert/messages';
 import EditTeeTime from './EditTeeTime';
 import BidButton from './BidButton';
 

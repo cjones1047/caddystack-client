@@ -5,7 +5,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import TextField from '@mui/material/TextField';
-import { List, ListItem, ListItemText, Divider } from '@mui/material';
+import { List, ListItem, ListItemText } from '@mui/material';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { Spinner } from 'react-bootstrap';
 
@@ -26,7 +26,7 @@ const theme = createTheme({
 });
 
 const FindCourse = (props) => {
-	const { msgAlert, user, setCourseToShow } = props
+	const { setCourseToShow } = props
 	// console.log('props in FindCourse:', props)
     let navigate = useNavigate()
 

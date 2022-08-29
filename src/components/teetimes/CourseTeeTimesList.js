@@ -1,18 +1,9 @@
-import { ToastContainer, Spinner, Modal } from 'react-bootstrap';
+import './CourseTeeTimesList.css'
+
+import { Spinner } from 'react-bootstrap';
 
 import { React, useEffect, useState } from 'react';
-import Button from '@mui/material/Button';
-import Box from '@mui/material/Box';
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import dayjs from 'dayjs';
 
-import PickDate from './PickDate';
-import PickTime from './PickTime';
-import PickGolfers from './PickGolfers';
-import PickCarts from './PickCarts';
-import PickAskPrice from './PickAskPrice';
-import PickIncrement from './PickIncrement';
-// import { createTeetime } from '../../api/teetime';
 import { getCourseTeeTimes } from '../../api/teetime';
 import TeeTimeToast from './TeeTimeToast';
 
@@ -61,9 +52,9 @@ const CourseTeeTimesList = (props) => {
     })
 
 	return (
-        <ToastContainer style={{width: '100%', display: 'flex', gap: '7.5px 15px', justifyContent: 'center', flexWrap: 'wrap'}}>
+        <div className='scroll-horizontal'>
             {teeTimeList}
-        </ToastContainer>
+        </div>
 	)
 }
 

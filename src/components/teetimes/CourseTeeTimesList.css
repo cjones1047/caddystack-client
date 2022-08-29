@@ -1,0 +1,6 @@
+.scroll-horizontal {
+    width: 100%;
+    display: flex;
+    overflow-x: auto;
+    gap: 7.5px 15px;
+}

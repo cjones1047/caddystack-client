@@ -56,9 +56,9 @@ const SignUp = (props) => {
 
 
     return (
-        <div className='row'>
+        <div className='row' style={{margin: 30}}>
             <div className='col-sm-10 col-md-8 mx-auto mt-5'>
-                <h3 style={{fontFamily: 'Times', color: 'white', textShadow: '0.25px 0.25px 4px black, -0.25px -0.25px 4px black'}}>Sign Up</h3>
+                <h3 style={{fontFamily: 'Times', color: 'white', textShadow: '0.25px 0.25px 4px black, -0.25px -0.25px 4px black', maxWidth: '80%'}}>Sign Up</h3>
                 <Form onSubmit={onSignUp}>
                     <Form.Group controlId='email'>
                         <Form.Label style={{fontFamily: 'Times', color: 'white', textShadow: '0.25px 0.25px 4px black, -0.25px -0.25px 4px black'}}>Email address</Form.Label>

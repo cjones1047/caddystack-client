@@ -53,9 +53,10 @@ const TeeTimeToast = (props) => {
             //         variant: 'success'
             //     })
             // })
-            .then(setRefreshThisCourse(prev => !prev))
+            // .then(setRefreshThisCourse(prev => !prev))
             // on failure, send a failure message
             .then(setShow(false))
+            .then(setRefreshThisCourse(prev => !prev))
             .catch(err => {
                 msgAlert({
                     heading: 'Error',
@@ -80,7 +81,7 @@ const TeeTimeToast = (props) => {
             bg='light'
             onClose={() => handleDeleteTeeTime()} 
             show={show}
-            style={{width: '30%', minWidth: '250px', height: 'fit-content'}}
+            style={{width: '40%', minWidth: '300px', height: 'fit-content', marginTop: 20, marginBottom: 20}}
         >
             <Toast.Header
                 style={{height: '50px', paddingRight: 25}}

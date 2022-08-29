@@ -62,57 +62,60 @@ const ShowCourse = (props) => {
         console.log('ShowCourse mounted')
         if(!courseToShow) navigate('/find-a-course')
         else {
-        getShowCourse(user ? user._id : null, courseToShow.courseId)
-            // .then()
-            .then(course => setCourseDetails(course.data.course))
-            .then(setCourseInDatabase(true))
-            .catch(() => {
-                const apiKey = process.env.REACT_APP_RAPIDAPI_API_KEY
+            getShowCourse(user ? user._id : null, courseToShow.courseId)
+                // .then()
+                .then(course => setCourseDetails(course.data.course))
+                .then(setCourseInDatabase(true))
+                .catch(() => {
+                    const apiKey = process.env.REACT_APP_RAPIDAPI_API_KEY
 
-                axios.request({
-                    method: 'GET',
-                    url: 'https://golf-course-finder.p.rapidapi.com/course/details',
-                    params: { zip: `${courseToShow.courseZip}`, name: `${courseToShow.courseName}` },
-                    headers: {
-                        'X-RapidAPI-Key': `${apiKey}`,
-                        'X-RapidAPI-Host': 'golf-course-finder.p.rapidapi.com'
-                    }
-                })
-                    .then(res => {
-                        console.log('API response: ', res)
-                        setCourseDetails(() => {
-                            const result = res.data.course_details.result
-                            return ({
-                                name: result.name,
-                                address: result.formatted_address,
-                                phoneNumber: result.formatted_phone_number,
-                                website: result.website, 
-                                hours: result.permanently_closed
-                                    ? 
-                                        null 
-                                    : 
-                                        result.opening_hours.weekday_text,
-                                courseId: courseToShow.courseId
+                    axios.request({
+                        method: 'GET',
+                        url: 'https://golf-course-finder.p.rapidapi.com/course/details',
+                        params: { zip: `${courseToShow.courseZip}`, name: `${courseToShow.courseName}` },
+                        headers: {
+                            'X-RapidAPI-Key': `${apiKey}`,
+                            'X-RapidAPI-Host': 'golf-course-finder.p.rapidapi.com'
+                        }
+                    })
+                        .then(res => {
+                            console.log('API response: ', res)
+                            setCourseDetails(() => {
+                                const result = res.data.course_details.result
+                                return ({
+                                    name: result.name,
+                                    address: result.formatted_address,
+                                    phoneNumber: result.formatted_phone_number,
+                                    website: result.website, 
+                                    hours: result.permanently_closed
+                                        ? 
+                                            null 
+                                        : 
+                                            result.opening_hours.weekday_text,
+                                    courseId: courseToShow.courseId
+                                })
                             })
                         })
-                    })
-                    .then(setCourseInDatabase(false))
-                    .catch(err => {
-                        console.log(err)
-                    })
-            })
+                        .then(setCourseInDatabase(false))
+                        .catch(err => {
+                            console.log(err)
+                        })
+                })
         }
 
-        getCourseTeeTimes(courseToShow.courseId)
-            .then(res => {
-                const teetimesUserOwns = res.data.teetimes.filter(teetime => {
-                    if(user && user._id === teetime.owner) return teetime
+        if(!courseToShow) navigate('/find-a-course')
+        else {
+            getCourseTeeTimes(courseToShow.courseId)
+                .then(res => {
+                    const teetimesUserOwns = res.data.teetimes.filter(teetime => {
+                        if(user && user._id === teetime.owner) return teetime
+                    })
+                    setUserTeeTimes(teetimesUserOwns)
                 })
-                setUserTeeTimes(teetimesUserOwns)
-            })
-            .catch(err => {
-                console.log(err)
-            })
+                .catch(err => {
+                    console.log(err)
+                })
+        }
 
     }, [refreshThisCourse])
 

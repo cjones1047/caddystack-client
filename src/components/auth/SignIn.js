@@ -55,7 +55,7 @@ const SignIn = (props) => {
 	}
 
     return (
-        <div className='row'>
+        <div className='row' style={{margin: 30}}>
             <div className='col-sm-10 col-md-8 mx-auto mt-5'>
                 <h3 style={{fontFamily: 'Times', color: 'white', textShadow: '0.25px 0.25px 4px black, -0.25px -0.25px 4px black'}}>Sign In</h3>
                 <Form onSubmit={onSignIn}>

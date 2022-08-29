@@ -22,10 +22,6 @@ const App = () => {
 
 	const [user, setUser] = useState(null)
 	const [msgAlerts, setMsgAlerts] = useState([])
-
-	// console.log('user in app', user)
-	// console.log('message alerts', msgAlerts)
-
 	const [courseToShow, setCourseToShow] = useState(null)
 
 	const clearUser = () => {
@@ -53,11 +49,12 @@ const App = () => {
 			<Header user={user} />
 			<Routes>
 				<Route 
-					path='/' 
+					path='/'
 					element={
-						<Home 
+						<FindCourse 
 							msgAlert={msgAlert} 
-							user={user} 
+							user={user}
+							setCourseToShow={setCourseToShow}
 						/>
 					} 
 				/>

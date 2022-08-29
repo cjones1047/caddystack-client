@@ -184,9 +184,9 @@ const MyCourses = (props) => {
                         </List>
                     </div>
                 :
-                    <div>
+                    <h1 style={{color: 'white', display: 'flex', justifyContent: 'center', marginTop: 30, textShadow: '0.25px 0.25px 4px black, -0.25px -0.25px 4px black'}}>
                         You haven't added any courses yet.
-                    </div>
+                    </h1>
             }
         </>
 	)

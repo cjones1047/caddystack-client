@@ -53,9 +53,9 @@ const ChangePassword = (props) => {
 
 
     return (
-        <div className='row'>
+        <div className='row' style={{margin: 30}}>
             <div className='col-sm-10 col-md-8 mx-auto mt-5'>
-                <h3 style={{fontFamily: 'Times', color: 'white', textShadow: '0.25px 0.25px 4px black, -0.25px -0.25px 4px black'}}>Change Password</h3>
+                <h3 style={{fontFamily: 'Times', color: 'white', textShadow: '0.25px 0.25px 4px black, -0.25px -0.25px 4px black', maxWidth: '80%'}}>Change Password</h3>
                 <Form onSubmit={onChangePassword}>
                     <Form.Group controlId='oldPassword'>
                         <Form.Label style={{fontFamily: 'Times', color: 'white', textShadow: '0.25px 0.25px 4px black, -0.25px -0.25px 4px black'}}>Old password</Form.Label>

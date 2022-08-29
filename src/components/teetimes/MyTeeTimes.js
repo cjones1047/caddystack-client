@@ -28,7 +28,7 @@ import MoreVertIcon from '@mui/icons-material/MoreVert';
 import Spinner from 'react-bootstrap/Spinner'
 
 import { getAllMyCourses, deleteCourse } from "../../api/course";
-import { getAllMyTeetimes } from '../../api/teetime';
+import { getAllMyTeetimes, deleteTeetime } from '../../api/teetime';
 import CreateCourseButton from "../shared/CreateCourseButton";
 import DeleteCourseButton from "../shared/DeleteCourseButton";
 import CreateTeeTimeModal from '../teetimes/CreateTeeTimeModal';
@@ -41,40 +41,13 @@ const MyTeeTimes = (props) => {
     } = props
 
     const [teeTimeList, setTeeTimeList] = useState('')
+    const [refresh, setRefresh] = useState(true)
 
     const navigate = useNavigate()
 
 	// console.log('props in ShowCourse:', props)
 
-    const deleteFromMyTeetimes = (teetimeId) => {
-        // e.preventDefault()
-
-        console.log('teetimeId: ', teetimeId)
-
-        // deleteCourse(user, courseDetails.courseId)
-        // // promise handling for createCourse here:
-        //     // send a success message to the user
-        //     .then(() => {
-        //         msgAlert({
-        //             heading: 'Done',
-        //             message: 'Course deleted from My Courses',
-        //             variant: 'success'
-        //         })
-        //         setRefreshThisCourse(prev => !prev)
-        //     })
-        //     // .then()
-        //     // if there is an error, tell the user about it
-        //     .catch(() => {
-        //         msgAlert({
-        //             heading: 'Error',
-        //             message: 'Something went wrong',
-        //             variant: 'danger'
-        //         })
-        //     })
-    }
-
-    useEffect(() => {
-        console.log('MyTeeTimes mounted')
+    const refreshTeeTimes = () => {
         getAllMyTeetimes(user)
             .then(res => {
                 const teetimes = res.data.teetimes.map((teetime, i) => {
@@ -113,7 +86,10 @@ const MyTeeTimes = (props) => {
                                     size="small"
                                     color='error'
                                     style={{ fontWeight: 'bold' }}
-                                    onClick={() => deleteFromMyTeetimes(teetime._id)}
+                                    onClick={() => {
+                                        handleDeleteTeeTime(teetime._id)
+                                        refreshTeeTimes()
+                                    }}
                                 >
                                     Take Down Listing
                                 </Button>
@@ -137,8 +113,37 @@ const MyTeeTimes = (props) => {
             .catch((err) => {
                 console.log(err)
             })
+    }
 
-    }, [user])
+    useEffect(() => {
+        refreshTeeTimes()
+    }, [])
+
+    const handleDeleteTeeTime = (teetimeId) => {
+        // e.preventDefault()
+
+        console.log('teetimeId to be deleted: ', teetimeId)
+
+        deleteTeetime(user, teetimeId)
+            // on success, send a success message
+            // .then(() => {
+            //     msgAlert({
+            //         heading: 'Success',
+            //         message: messages.removeBookSuccess,
+            //         variant: 'success'
+            //     })
+            // })
+            // .then()
+            // on failure, send a failure message
+            .then(refreshTeeTimes())
+            .catch(err => {
+                msgAlert({
+                    heading: 'Error',
+                    message: "Couldn't delete tee time...",
+                    variant: 'danger'
+                })
+            })
+    }
 
     console.log('Tee time list: ', teeTimeList)
 
@@ -166,7 +171,7 @@ const MyTeeTimes = (props) => {
 
             {teeTimeList.length > 0 
                 ?
-                    <div className='all-teetimes-form-container'>
+                    <div className='all-teetimes-form-container' style={{marginTop: '10px'}}>
                         <div className='scroll-horizontal'>
                             {teeTimeList}
                         </div>

@@ -81,17 +81,16 @@ const TeeTimeToast = (props) => {
         <Toast 
             key={i}
             bg='light'
-            onClose={() => handleDeleteTeeTime()} 
             show={show}
             style={{width: '40%', minWidth: '300px', height: 'fit-content', marginTop: 20, marginBottom: 20}}
         >
             <Toast.Header
-                style={{height: '50px', paddingRight: 25}}
-                closeButton={user && teeTimeOwner._id === user._id ? true : false}
+                style={{height: '50px', display: 'flex', justifyContent: 'center'}}
+                closeButton={false}
             >
                 {user && teeTimeOwner._id === user._id 
                     ?
-                        <strong className="me-auto">
+                        <strong>
                             <EditTeeTime
                                 user={user}
                                 msgAlert={msgAlert}
@@ -100,7 +99,7 @@ const TeeTimeToast = (props) => {
                             />
                         </strong>
                     :
-                        <strong className="me-auto">
+                        <strong>
                             Posted by: {teeTimeOwner.email}
                         </strong>
                 }

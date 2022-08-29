@@ -18,7 +18,7 @@ import BidButton from './BidButton';
 const TeeTimeToast = (props) => {
 
     const {
-        key,
+        i,
         teetime,
         user,
         msgAlert,
@@ -76,7 +76,7 @@ const TeeTimeToast = (props) => {
 
     return (
         <Toast 
-            key={key}
+            key={i}
             bg='light'
             onClose={() => handleDeleteTeeTime()} 
             show={show}
@@ -132,6 +132,7 @@ const TeeTimeToast = (props) => {
                         msgAlert={msgAlert}
                         refreshThisCourse={refreshThisCourse}
                         setRefreshThisCourse={setRefreshThisCourse}
+                        setTeeTimeOwner={setTeeTimeOwner}
                     />
                 </div>
 

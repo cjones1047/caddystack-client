@@ -4,6 +4,7 @@ import { useState, useEffect} from 'react';
 import Button from '@mui/material/Button';
 
 import { updateTeetime } from '../../api/teetime';
+import { getTeeTimeOwner } from '../../api/auth';
 
 const BidButton = (props) => {
     const { 
@@ -11,11 +12,13 @@ const BidButton = (props) => {
         teetime,
         msgAlert,
         refreshThisCourse,
-        setRefreshThisCourse
+        setRefreshThisCourse,
+        setTeeTimeOwner
      } = props
 
     // const [lastBidder, setLastBidder] = useState(null)
     const [bidForm, setBidForm] = useState(null)
+    const [acceptForm, setAcceptForm] = useState(null)
 
     useEffect(() => {
         setBidForm({
@@ -24,49 +27,45 @@ const BidButton = (props) => {
             lastBidderPrice: teetime.askPrice + teetime.increment,
             askPrice: teetime.askPrice + teetime.increment
         })
+
+        setAcceptForm({
+            _id: teetime._id,
+            lastBidder: teetime.lastBidder,
+            owner: teetime.lastBidder,
+            lastBidderPrice: '',
+            askPrice: teetime.askPrice
+        })
     }, [refreshThisCourse])
 
-    const handleAccept = (e) => {
-        e.preventDefault()
+    const handleAccept = () => {
 
-        setBidForm({
-            ...bidForm,
-            ['owner']: teetime.lastBidder
-        });
+        updateTeetime(user, acceptForm)
+            .then(res => {
+                getTeeTimeOwner(acceptForm.lastBidder)
+                    .then(res => {
+                        setTeeTimeOwner(res.data.owner)
+                    })
+                    .catch(err => console.log(err))
+                return
+            })
+            .then(setRefreshThisCourse(prev => !prev))
+            .catch(err => {
+                msgAlert({
+                    heading: 'Error',
+                    message: "Couldn't accept bid...",
+                    variant: 'danger'
+                })
+            })
     }
 
     const handleBid = () => {
-        // e.preventDefault()
-
-        // setBidForm({
-        //     ...bidForm,
-        //     ['lastBidder']: user._id,
-        //     ['askPrice']: teetime.askPrice + teetime.increment
-        // });
 
         updateTeetime(user, bidForm)
-            // on success, send a success message
-            // .then(() => {
-            //     msgAlert({
-            //         heading: 'Done',
-            //         message: 'Tee time updated.',
-            //         variant: 'success'
-            //     })
-            // })
-            // then navigate to index
-            // .then(setUpdatedCommentList)
-            // .then(() => {
-            //     navigate('/')
-            // })
-            // on failure, send a failure message
-            // .then(setShowEditTeeTimeModal(false))
             .then(setRefreshThisCourse(prev => !prev))
             .catch(err => {
-                // navigate('/')
-                // navigate back to home page if there's an error fetching
                 msgAlert({
                     heading: 'Error',
-                    message: "Couldn't update tee time...",
+                    message: "Couldn't place bid...",
                     variant: 'danger'
                 })
             })
@@ -89,7 +88,7 @@ const BidButton = (props) => {
                                         size="small"
                                         color='info'
                                         style={{ fontWeight: 'bold', margin: 5 }}
-                                        onClick={handleAccept}
+                                        onClick={() => handleAccept()}
                                     >
                                         Accept Bid
                                     </Button>

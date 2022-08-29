@@ -28,7 +28,7 @@ export const createTeetime = (user, newTeetime) => {
 export const updateTeetime = (user, updatedTeetime) => {
     console.log('updateTeetime in API hit')
     console.log('this is user: ', user)
-    console.log('this is updatedBook: ', updatedTeetime)
+    console.log('this is updatedTeetime: ', updatedTeetime)
 	return axios({
 		url: `${apiUrl}/teetime/${updatedTeetime._id}`,
 		method: 'PATCH',

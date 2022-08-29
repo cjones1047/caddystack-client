@@ -35,6 +35,8 @@ const EditTeeTime = (props) => {
         carts: teetime.carts,
         askPrice: teetime.askPrice,
         increment: teetime.increment,
+        lastBidder: user._id,
+        lastBidderPrice: '',
         courseId: teetime.courseId,
         courseName: teetime.courseName,
         _id: teetime._id
@@ -122,6 +124,8 @@ const EditTeeTime = (props) => {
                         carts: teetime.carts,
                         askPrice: teetime.askPrice,
                         increment: teetime.increment,
+                        lastBidder: user._id,
+                        lastBidderPrice: '',
                         courseId: teetime.courseId,
                         courseName: teetime.courseName,
                         _id: teetime._id

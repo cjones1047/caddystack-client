@@ -118,6 +118,8 @@ const CreateTeeTimeModal = (props) => {
                         carts: '',
                         askPrice: '',
                         increment: '',
+                        lastBidder: user._id,
+                        lastBidderPrice: '',
                         courseId: courseDetails.courseId,
                         courseName: courseDetails.name
                     })

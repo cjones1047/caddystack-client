@@ -50,7 +50,7 @@ const CourseTeeTimesList = (props) => {
     const teeTimeList =  courseTeeTimes.map((teetime, i) => {
         return(
             <TeeTimeToast
-                key={i}
+                i={i}
                 teetime={teetime}
                 user={user}
                 msgAlert={msgAlert}

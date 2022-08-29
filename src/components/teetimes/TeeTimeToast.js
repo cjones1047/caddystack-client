@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import Button from 'react-bootstrap/Button';
+// import Button from 'react-bootstrap/Button';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import Toast from 'react-bootstrap/Toast';
@@ -7,12 +7,13 @@ import Spinner from 'react-bootstrap/Spinner';
 
 
 import EditTwoToneIcon from '@mui/icons-material/EditTwoTone';
-import { IconButton, Divider } from '@mui/material';
+import { IconButton, Divider, Button } from '@mui/material';
 
 import { getTeeTimeOwner } from '../../api/auth';
 import { deleteTeetime } from '../../api/teetime';
 import { signOutSuccess } from '../shared/AutoDismissAlert/messages';
 import EditTeeTime from './EditTeeTime';
+import BidButton from './BidButton';
 
 const TeeTimeToast = (props) => {
 
@@ -79,7 +80,7 @@ const TeeTimeToast = (props) => {
             bg='light'
             onClose={() => handleDeleteTeeTime()} 
             show={show}
-            style={{width: '30%', minWidth: '185px', height: 'fit-content'}}
+            style={{width: '30%', minWidth: '250px', height: 'fit-content'}}
         >
             <Toast.Header
                 style={{height: '50px', paddingRight: 25}}
@@ -113,17 +114,25 @@ const TeeTimeToast = (props) => {
                 <h3 style={{marginTop: '10px'}}>
                     {new Date(teetime.time).toLocaleTimeString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true })}
                 </h3>
-                <div>
-                    {teetime.golfers} golfers
+                <div style={{color: 'rgba(87, 87, 87, 1)', display: 'flex', justifyContent: 'left', marginTop: '20px', fontSize: 15}}>
+                    Golfers:&nbsp;<strong style={{color: 'black'}}>{teetime.golfers}</strong>
                 </div>
-                <div>
-                    {teetime.carts} carts
+                <div style={{color: 'rgba(87, 87, 87, 1)', display: 'flex', justifyContent: 'left', fontSize: 15}}>
+                    Carts:&nbsp;<strong style={{color: 'black'}}>{teetime.carts}</strong>
                 </div>
-                <div>
-                    Current bid: ${teetime.askPrice}.00
+                <Divider style={{marginTop: 8, marginBottom: 8}}/>
+                <div style={{color: 'rgba(87, 87, 87, 1)', display: 'flex', justifyContent: 'left', flexDirection: 'column', fontSize: 16}}>
+                    Bid increments: &nbsp;<strong style={{color: 'black', fontSize: 19}}>${teetime.increment}.00</strong>
                 </div>
-                <div>
-                    Bid increments set at ${teetime.increment}.00
+                <div style={{color: 'rgba(87, 87, 87, 1)', display: 'flex', justifyContent: 'center', flexDirection: 'column', marginTop: 7, padding: 5, border: '1.5px solid black', borderRadius: '10px', fontSize: 18}}>
+                    Current price: &nbsp;<strong style={{color: 'black', fontSize: 25}}>${teetime.askPrice}.00</strong>
+                    <BidButton
+                        user={user}
+                        teetime={teetime}
+                        msgAlert={msgAlert}
+                        refreshThisCourse={refreshThisCourse}
+                        setRefreshThisCourse={setRefreshThisCourse}
+                    />
                 </div>
 
             </Toast.Body>

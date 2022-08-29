@@ -124,7 +124,7 @@ const TeeTimeToast = (props) => {
                 <div style={{color: 'rgba(87, 87, 87, 1)', display: 'flex', justifyContent: 'left', flexDirection: 'column', fontSize: 16}}>
                     Bid increments: &nbsp;<strong style={{color: 'black', fontSize: 19}}>${teetime.increment}.00</strong>
                 </div>
-                <div style={{color: 'rgba(87, 87, 87, 1)', display: 'flex', justifyContent: 'center', flexDirection: 'column', marginTop: 7, padding: 5, border: '1.5px solid black', borderRadius: '10px', fontSize: 18}}>
+                <div style={{color: 'rgba(87, 87, 87, 1)', display: 'flex', justifyContent: 'center', flexDirection: 'column', marginTop: 7, padding: 5, border: '1.5px solid rgba(194, 194, 194, 1)', borderRadius: '10px', fontSize: 18}}>
                     Current price: &nbsp;<strong style={{color: 'black', fontSize: 25}}>${teetime.askPrice}.00</strong>
                     <BidButton
                         user={user}

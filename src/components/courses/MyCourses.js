@@ -32,6 +32,7 @@ import CreateCourseButton from "../shared/CreateCourseButton";
 import DeleteCourseButton from "../shared/DeleteCourseButton";
 import CreateTeeTimeModal from '../teetimes/CreateTeeTimeModal';
 import CourseTeeTimesList from '../teetimes/CourseTeeTimesList';
+import Note from './Note';
 
 // const ExpandMore = styled((props) => {
 //     const { expand, ...other } = props;
@@ -71,12 +72,35 @@ const MyCourses = (props) => {
                             key={i} 
                             button 
                             divider={i > (res.data.courses.length) - 2 ? false : true}
-                            onClick={(e) => handleCourseClick(e, course.courseId)}
-                            >
+                            // onClick={(e) => handleCourseClick(e, course.courseId)}
+                            // disabled
+                            
+                        >
                             <ListItemText 
-                                primary={course.name} 
-                                secondary={`${course.distance} miles`}
-                            />
+                                primary={
+                                    <div style={{width: '100%', display: 'flex', justifyContent: 'center', flexDirection: 'column'}}>
+                                        <Button 
+                                            style={{ fontWeight: 'bold', margin: '10px', marginTop: '0', width: 'fit-content' }}
+                                            variant='contained'
+                                            size="small"
+                                            color='success'
+                                            onClick={(e) => handleCourseClick(e, course.courseId)}
+                                            >
+                                                {course.name}
+                                        </Button>
+
+                                        <Note
+                                            user={user}
+                                            course={course}
+                                        />
+                                    </div>
+                                }
+                                // style={{display: 'flex', flexWrap: 'row'}}
+                                // secondary={`${course.distance} miles`}
+                            >
+                                
+                            </ListItemText>
+                            
                         </ListItem>
                     )
                 })

@@ -178,8 +178,8 @@ const MyTeeTimes = (props) => {
                     </div>
                     
                 :
-                    <h1 style={{color: 'white', display: 'flex', justifyContent: 'center', marginTop: 30, textShadow: '0.25px 0.25px 4px black, -0.25px -0.25px 4px black'}}>
-                        You don't have any tee times yet.
+                    <h1 style={{color: 'white', display: 'flex', justifyContent: 'center' , textShadow: '0.25px 0.25px 4px black, -0.25px -0.25px 4px black', margin: 10}}>
+                        You don't have any tee times.
                     </h1>
             }
         </>

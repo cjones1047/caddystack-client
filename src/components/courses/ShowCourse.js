@@ -259,7 +259,16 @@ const ShowCourse = (props) => {
                                         setExpanded={setExpanded}
                                     />
                                     :
-                                    null
+                                        expanded
+                                            ?
+                                                <Typography color="text.secondary" style={{ marginTop: '10px' }}>
+                                                    <div>
+                                                        Can't post multiple tee times.
+                                                    </div>
+                                                    <Link to='/my-teetimes'>Take down</Link> some to post more.
+                                                </Typography>
+                                            :
+                                                null
                                 }
                             
                             </Stack>
@@ -268,7 +277,10 @@ const ShowCourse = (props) => {
                             // </div>
                             
                         :
-                            null
+                            <Typography color="text.secondary">
+                                <Link to='/sign-in'>Sign In</Link>&nbsp;/&nbsp;<Link to='/sign-up'>Sign Up</Link> to use all features
+                            </Typography>
+                            
                     }
                     
                     {/* <IconButton aria-label="share">
@@ -287,7 +299,7 @@ const ShowCourse = (props) => {
                                     ?
                                     <div style={{ fontSize: '15px' }}>See tee times posted</div>
                                     :
-                                    null
+                                    <div style={{ fontSize: '15px', transform: 'rotate(180deg)' }}>Refresh</div>
                                 }
                                 <ExpandMoreIcon />
                             </ExpandMore>

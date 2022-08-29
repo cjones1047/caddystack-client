@@ -91,6 +91,7 @@ const MyCourses = (props) => {
 
                                         <Note
                                             user={user}
+                                            msgAlert={msgAlert}
                                             course={course}
                                         />
                                     </div>

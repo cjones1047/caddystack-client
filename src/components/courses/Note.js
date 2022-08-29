@@ -1,10 +1,14 @@
-import { ToastContainer, Toast, Button, Form } from "react-bootstrap"
+import EditTwoToneIcon from '@mui/icons-material/EditTwoTone';
+
+import { Toast, Button, Form } from "react-bootstrap"
 import { useState } from "react"
-// import { updateBook } from "../../api/books"
+
+import { updateCourse } from "../../api/course"
 
 const Note = (props) => {
     const {
         user,
+        msgAlert,
         course
     } = props
 
@@ -14,7 +18,7 @@ const Note = (props) => {
         showEditBox: false
     })
 
-    console.log('Book we are editing: ', courseToEdit)
+    console.log('Course we are editing: ', courseToEdit)
 
     const openTextBox = (e) => {
         setCourseToEdit((prev) => {
@@ -45,36 +49,36 @@ const Note = (props) => {
 
         course.note = courseToEdit.note
 
-        // updateBook(user, course)
-        //     // on success, send a success message
-        //     // .then(() => {
-        //     //     msgAlert({
-        //     //         heading: 'Success',
-        //     //         message: messages.removeBookSuccess,
-        //     //         variant: 'success'
-        //     //     })
-        //     // })
-        //     // then navigate to index
-        //     // .then(setUpdatedCommentList)
-        //     // .then(() => {
-        //     //     navigate('/')
-        //     // })
-        //     // on failure, send a failure message
-        //     .then(setCourseToEdit({
-        //             id: null,
-        //             note: course.note,
-        //             showEditBox: false
-        //         })
-        //     )
-        //     .catch(err => {
-        //         // navigate('/')
-        //         // navigate back to home page if there's an error fetching
-        //         msgAlert({
-        //             heading: 'Error setting reason Tagged',
-        //             message: "Couldn't edit that for you...",
-        //             variant: 'danger'
-        //         })
-        //     })
+        updateCourse(user, course)
+            // on success, send a success message
+            // .then(() => {
+            //     msgAlert({
+            //         heading: 'Success',
+            //         message: messages.removeCourseSuccess,
+            //         variant: 'success'
+            //     })
+            // })
+            // then navigate to index
+            // .then(setUpdatedCommentList)
+            // .then(() => {
+            //     navigate('/')
+            // })
+            // on failure, send a failure message
+            .then(setCourseToEdit({
+                    id: null,
+                    note: course.note,
+                    showEditBox: false
+                })
+            )
+            .catch(err => {
+                // navigate('/')
+                // navigate back to home page if there's an error fetching
+                msgAlert({
+                    heading: 'Error setting reason Tagged',
+                    message: "Couldn't edit that for you...",
+                    variant: 'danger'
+                })
+            })
     }
 
     return (
@@ -90,7 +94,7 @@ const Note = (props) => {
                                 className="me-auto"
                                 style={{margin: 0, padding: '0 5px'}}
                                 >
-                                    Why'd they Tag it?
+                                    ERROR. SHOULD NOT BE ON THIS PAGE WITHOUT AUTHENTICATION.
                             </strong>
                         :
                             user._id === course.owner
@@ -100,7 +104,7 @@ const Note = (props) => {
                                     className="me-auto"
                                     style={{margin: 0, padding: '0 5px'}}
                                     >
-                                        Reason you Tagged
+                                        Notes to self about course:
                                 </strong>
                                 {courseToEdit.showEditBox 
                                 ?
@@ -111,7 +115,7 @@ const Note = (props) => {
                                         onClick={openTextBox}
                                         style={{height: 'fit-content', margin: 0, padding: '3px 7px'}}
                                         >
-                                            Edit
+                                            <EditTwoToneIcon />
                                     </Button>
                                 }
                                 
@@ -121,7 +125,7 @@ const Note = (props) => {
                                     className="me-auto"
                                     style={{margin: 0, padding: '0 5px'}}
                                     >
-                                        Why'd they Tag it?
+                                        ERROR. SHOULD NOT BE ON THIS PAGE WITHOUT AUTHENTICATION.
                                 </strong>
                         }
 
@@ -135,7 +139,7 @@ const Note = (props) => {
                             ?
                                 null
                             :
-                                <h6>"{course.note}"</h6>
+                                <h6>{course.note}</h6>
                             } 
                             </>
                         :
@@ -146,7 +150,7 @@ const Note = (props) => {
                                     ?
                                         null
                                     :
-                                        <h6>Tell everyone why you Tagged it here</h6>
+                                        <h6>&nbsp;</h6>
                                     }
                                         
                                 </>
@@ -154,14 +158,14 @@ const Note = (props) => {
                                 <>
                                     {courseToEdit.note
                                     ?
-                                        <h6>"{courseToEdit.note}"</h6>
+                                        <h6>{courseToEdit.note}</h6>
                                     :
                                         <>
                                         {!user
                                         ?
-                                            <h6>No reason...<br/>Sign up to ask them why they Tagged in the comment section!</h6>
+                                            <h6>ERROR. SHOULD NOT BE ON THIS PAGE WITHOUT AUTHENTICATION.</h6>
                                         :
-                                            <h6>No reason...<br/>Ask them why they Tagged in the comment section below!</h6>
+                                            <h6>ERROR. SHOULD NOT BE ON THIS PAGE WITHOUT AUTHENTICATION.</h6>
                                         }
                                             
                                         </>
@@ -177,7 +181,7 @@ const Note = (props) => {
 
                                 <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
                                     <Form.Control
-                                        placeholder="Tell us why you Tagged it..."
+                                        placeholder="Past scores, notes on certain holes, etc..."
                                         value={courseToEdit.note}
                                         name="note"
                                         type="text"

@@ -23,10 +23,6 @@ export const getShowCourse = (userId, courseId) => {
 // CREATE
 export const createCourse = (user, newCourse) => {
     console.log('createCourse in API hit')
-    // inour createBook form, we're building an object
-    // when we pass that object into the api createBook function
-    // it's going to look like the books in our database
-    // we're going to refer to this as a newBook, so we can just pass the entire object created by the form into an Axios request to our back-end (Books API) and call it 'book'
     console.log('this is user: ', user)
     console.log('this is newCourse: ', newCourse)
 	return axios({
@@ -38,6 +34,23 @@ export const createCourse = (user, newCourse) => {
 		data: {
 			course: newCourse,
 		},
+	})
+}
+
+// UPDATE
+export const updateCourse = (user, updatedCourse) => {
+    console.log('updateCourse in API was hit')
+    // console.log('this is user', user)
+    console.log('this is updatedCourse: ', updatedCourse)
+	return axios({
+		url: `${apiUrl}/course/${updatedCourse._id}`,
+		method: 'PATCH',
+		headers: {
+			Authorization: `Token token=${user.token}`
+		},
+		data: {
+			course: updatedCourse
+		}
 	})
 }
 

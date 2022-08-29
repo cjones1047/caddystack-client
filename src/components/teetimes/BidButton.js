@@ -21,20 +21,23 @@ const BidButton = (props) => {
     const [acceptForm, setAcceptForm] = useState(null)
 
     useEffect(() => {
-        setBidForm({
-            _id: teetime._id,
-            lastBidder: user._id,
-            lastBidderPrice: teetime.askPrice + teetime.increment,
-            askPrice: teetime.askPrice + teetime.increment
-        })
+        if(user) {
+            setBidForm({
+                _id: teetime._id,
+                lastBidder: user._id,
+                lastBidderPrice: teetime.askPrice + teetime.increment,
+                askPrice: teetime.askPrice + teetime.increment
+            })
 
-        setAcceptForm({
-            _id: teetime._id,
-            lastBidder: teetime.lastBidder,
-            owner: teetime.lastBidder,
-            lastBidderPrice: '',
-            askPrice: teetime.askPrice
-        })
+            setAcceptForm({
+                _id: teetime._id,
+                lastBidder: teetime.lastBidder,
+                owner: teetime.lastBidder,
+                lastBidderPrice: '',
+                askPrice: teetime.askPrice
+            })
+        }
+        
     }, [refreshThisCourse])
 
     const handleAccept = () => {

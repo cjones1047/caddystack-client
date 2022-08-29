@@ -53,10 +53,10 @@ const TeeTimeToast = (props) => {
             //         variant: 'success'
             //     })
             // })
-            // .then(setRefreshThisCourse(prev => !prev))
+            // .then()
             // on failure, send a failure message
             .then(setShow(false))
-            .then(setRefreshThisCourse(prev => !prev))
+            // .then(setRefreshThisCourse(prev => !prev))
             .catch(err => {
                 msgAlert({
                     heading: 'Error',
@@ -64,6 +64,8 @@ const TeeTimeToast = (props) => {
                     variant: 'danger'
                 })
             })
+
+        setRefreshThisCourse(prev => !prev)
     }
 
     if(!teeTimeOwner) return (

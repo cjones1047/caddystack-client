@@ -50,9 +50,10 @@ const Header = ({ user }) => {
 	useEffect(() => {
 		const userOptions = [
 			{ str: 'Find A Course', link: 'find-a-course' },
-			{ str: 'My Courses', link: 'my-courses' }
+			{ str: 'My Courses', link: 'my-courses' },
+			{ str: 'My Tee Times', link: 'my-teetimes' }
 		]
-		
+
 		const userNullOptions = [
 			{ str: 'Find A Course', link: 'find-a-course' }
 		]

@@ -17,6 +17,7 @@ import ChangePassword from './components/auth/ChangePassword'
 import FindCourse from './components/courses/FindCourse'
 import ShowCourse from './components/courses/ShowCourse'
 import MyCourses from './components/courses/MyCourses'
+import MyTeeTimes from './components/teetimes/MyTeeTimes'
 
 const App = () => {
 
@@ -75,6 +76,17 @@ const App = () => {
 							<MyCourses
 								user={user}
 								setCourseToShow={setCourseToShow}
+							/>
+						</RequireAuth>
+					}
+				/>
+				<Route
+					path='/my-teetimes'
+					element={
+						<RequireAuth user={user}>
+							<MyTeeTimes
+								user={user}
+								msgAlert={msgAlert}
 							/>
 						</RequireAuth>
 					}

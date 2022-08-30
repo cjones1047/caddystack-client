@@ -177,7 +177,7 @@ const ShowCourse = (props) => {
 
 	return (
         <div className="show-course-container">
-            <Card sx={{ width: '90%', maxWidth: 800 }}>
+            <Card sx={{ width: '90%', maxWidth: 800 }} raised={true}>
                 <CardHeader
                     title={courseDetails.name}
                     style={{backgroundColor: 'rgba(233, 233, 233, 0.8)'}}
@@ -306,7 +306,7 @@ const ShowCourse = (props) => {
                     }
                     
                 </CardActions>
-                <Collapse in={expanded} timeout="auto">
+                <Collapse in={expanded} timeout="auto" unmountOnExit={true}>
                     <CardContent>
                         < CourseTeeTimesList
                             user={user}

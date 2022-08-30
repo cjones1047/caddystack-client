@@ -1,5 +1,5 @@
 // import { useNavigate } from 'react-router-dom';
-import { useState, useEffect} from 'react';
+import { useState, useLayoutEffect } from 'react';
 
 import Button from '@mui/material/Button';
 
@@ -20,7 +20,7 @@ const BidButton = (props) => {
     const [bidForm, setBidForm] = useState(null)
     const [acceptForm, setAcceptForm] = useState(null)
 
-    useEffect(() => {
+    useLayoutEffect(() => {
         if(user) {
             setBidForm({
                 _id: teetime._id,

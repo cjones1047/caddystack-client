@@ -4,7 +4,7 @@ import TextField from '@mui/material/TextField';
 import Stack from '@mui/material/Stack';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import { TimePicker } from '@mui/x-date-pickers';
+import { MobileTimePicker } from '@mui/x-date-pickers';
 
 const PickTime = (props) => {
     const { time, handleFormValueChange } = props
@@ -24,7 +24,7 @@ const PickTime = (props) => {
     return (
         <LocalizationProvider dateAdapter={AdapterDayjs}>
             <Stack style={{width: '45%'}} >
-                <TimePicker
+                <MobileTimePicker
                     label="Time of tee-off?"
                     // name='time'
                     value={value}

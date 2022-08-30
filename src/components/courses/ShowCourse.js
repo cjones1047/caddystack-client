@@ -211,14 +211,14 @@ const ShowCourse = (props) => {
                         {courseDetails.hours
                             ?
                                 courseDetails.hours.map((timeframe, i) =>
-                                    <div key={i}>
+                                    <li key={i} style={{listStyleType: 'none'}}>
                                         {timeframe}
-                                    </div>
+                                    </li>
                                 )
                             :
-                                <div>
+                                <li style={{listStyleType: 'none'}}>
                                     COURSE PERMANENTLY CLOSED
-                                </div>
+                                </li>
                         }
                         
                     </Typography>
@@ -266,10 +266,6 @@ const ShowCourse = (props) => {
                                 }
                             
                             </Stack>
-                            // <div style={{display: 'block'}}>
-                                
-                            // </div>
-                            
                         :
                             <Typography color="text.secondary">
                                 <Link to='/sign-in'>Sign In</Link>&nbsp;/&nbsp;<Link to='/sign-up'>Sign Up</Link> to use all features

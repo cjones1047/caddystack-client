@@ -1,6 +1,6 @@
 import './MyTeeTimes.css'
 
-import { useEffect, useState } from "react";
+import { useLayoutEffect, useState } from "react";
 import { useNavigate } from 'react-router-dom'
 
 import * as React from 'react';
@@ -101,9 +101,9 @@ const MyTeeTimes = (props) => {
             })
     }
 
-    useEffect(() => {
+    useLayoutEffect(() => {
         refreshTeeTimes()
-    }, [])
+    }, [user])
 
     const handleDeleteTeeTime = (teetimeId) => {
         // e.preventDefault()
@@ -143,7 +143,7 @@ const MyTeeTimes = (props) => {
 
 	return (
         <>
-            <div className='all-teetimes-form-container'>
+            <div className='all-teetimes-form-container' style={{marginBottom: '50px'}}>
                 <Button
                     style={{ fontWeight: 'bold' }}
                     variant='contained'
@@ -157,7 +157,7 @@ const MyTeeTimes = (props) => {
 
             {teeTimeList.length > 0 
                 ?
-                    <div className='all-teetimes-form-container' style={{marginTop: '10px'}}>
+                    <div className='all-teetimes-form-container' style={{marginLeft: '20px', marginRight: '20px'}}>
                         <div className='scroll-horizontal'>
                             {teeTimeList}
                         </div>

@@ -8,6 +8,7 @@ import * as React from 'react';
 // import { styled } from '@mui/material/styles';
 import Button from '@mui/material/Button';
 import { List, ListItem, ListItemText } from '@mui/material';
+import ExitToAppTwoToneIcon from '@mui/icons-material/ExitToAppTwoTone';
 
 import Spinner from 'react-bootstrap/Spinner'
 
@@ -60,13 +61,14 @@ const MyCourses = (props) => {
                                 primary={
                                     <div style={{width: '100%', display: 'flex', justifyContent: 'center', flexDirection: 'column'}}>
                                         <Button 
-                                            style={{ fontWeight: 'bold', margin: '10px', marginTop: '0', width: 'fit-content' }}
+                                            style={{ fontWeight: 'bold', margin: '15px auto', width: 'fit-content' }}
                                             variant='contained'
                                             size="small"
                                             color='success'
                                             onClick={(e) => handleCourseClick(e, course.courseId)}
                                             >
-                                                {course.name}
+                                                {course.name} &nbsp;
+                                                <ExitToAppTwoToneIcon />
                                         </Button>
 
                                         <div style={{marginTop: '10px', marginBottom: '20px', display: 'flex', flexDirection: 'column'}}>
@@ -79,7 +81,7 @@ const MyCourses = (props) => {
                                             </div>
 
                                             <a href={course.website} rel="noreferrer" target="_blank" style={{flexWrap: 'wrap'}}>
-                                                {course.website}
+                                                {course.name}'s website
                                             </a>
                                         </div>
                                         

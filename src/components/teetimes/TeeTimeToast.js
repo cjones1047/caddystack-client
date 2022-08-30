@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useLayoutEffect, useState } from 'react';
 // import Button from 'react-bootstrap/Button';
 // import Col from 'react-bootstrap/Col';
 // import Row from 'react-bootstrap/Row';
@@ -10,7 +10,7 @@ import Spinner from 'react-bootstrap/Spinner';
 import { Divider } from '@mui/material';
 
 import { getTeeTimeOwner } from '../../api/auth';
-import { deleteTeetime } from '../../api/teetime';
+// import { deleteTeetime } from '../../api/teetime';
 // import { signOutSuccess } from '../shared/AutoDismissAlert/messages';
 import EditTeeTime from './EditTeeTime';
 import BidButton from './BidButton';
@@ -33,40 +33,13 @@ const TeeTimeToast = (props) => {
 
     console.log('States in TeeTimeToast: ', show, teeTimeOwner)
 
-    useEffect(() => {
+    useLayoutEffect(() => {
         getTeeTimeOwner(teetime.owner)
             .then(res => {
                 setTeeTimeOwner(res.data.owner)
             })
             .catch(err => console.log(err))
     }, [refreshThisCourse])
-
-    const handleDeleteTeeTime = () => {
-        // e.preventDefault()
-
-        deleteTeetime(user, teetime._id)
-            // on success, send a success message
-            // .then(() => {
-            //     msgAlert({
-            //         heading: 'Success',
-            //         message: messages.removeBookSuccess,
-            //         variant: 'success'
-            //     })
-            // })
-            // .then()
-            // on failure, send a failure message
-            .then(setShow(false))
-            // .then(setRefreshThisCourse(prev => !prev))
-            .catch(err => {
-                msgAlert({
-                    heading: 'Error',
-                    message: "Couldn't delete tee time...",
-                    variant: 'danger'
-                })
-            })
-
-        setRefreshThisCourse(prev => !prev)
-    }
 
     if(!teeTimeOwner) return (
         <div style={{display: 'flex', justifyContent: 'center',

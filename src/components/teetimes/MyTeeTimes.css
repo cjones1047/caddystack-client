@@ -6,10 +6,8 @@
 }
 
 .scroll-horizontal {
-    width: 90%;
+    width: 100%;
     display: flex;
     overflow-x: auto;
     gap: 7.5px 15px;
-    margin: 30px;
-    border-radius: 40px;
 }

@@ -1,6 +1,8 @@
 import EditTwoToneIcon from '@mui/icons-material/EditTwoTone';
+import { Button } from '@mui/material';
 
-import { Toast, Button, Form } from "react-bootstrap"
+import { Toast, Form } from "react-bootstrap"
+
 import { useState } from "react"
 
 import { updateCourse } from "../../api/course"
@@ -111,7 +113,8 @@ const Note = (props) => {
                                     null
                                 :
                                     <Button 
-                                        variant="danger"
+                                        variant="contained"
+                                        color="error"
                                         onClick={openTextBox}
                                         style={{height: 'fit-content', margin: 0, padding: '3px 7px'}}
                                         >
@@ -191,16 +194,27 @@ const Note = (props) => {
                                     />
                                 </Form.Group>
 
-                                <Button
+                                {/* <Button
                                     type="submit"
                                     variant="success"
                                     style={{marginRight: '10px'}}
                                     >
                                         Confirm
+                                </Button> */}
+                                <Button
+                                    style={{marginRight: '10px'}}
+                                    variant='contained'
+                                    size="small"
+                                    color='success'
+                                    type='submit'
+                                >
+                                    Confirm
                                 </Button>
 
                                 <Button
-                                    variant="danger"
+                                    variant="contained"
+                                    color="error"
+                                    size="small"
                                     onClick={closeTextBox}
                                     >
                                         Cancel

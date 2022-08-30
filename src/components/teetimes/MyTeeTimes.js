@@ -27,7 +27,7 @@ const MyTeeTimes = (props) => {
     } = props
 
     const [teeTimeList, setTeeTimeList] = useState('')
-    // const [refresh, setRefresh] = useState(true)
+    const [refresh, setRefresh] = useState(true)
 
     const navigate = useNavigate()
 
@@ -103,7 +103,7 @@ const MyTeeTimes = (props) => {
 
     useLayoutEffect(() => {
         refreshTeeTimes()
-    }, [user])
+    }, [refresh])
 
     const handleDeleteTeeTime = (teetimeId) => {
         // e.preventDefault()
@@ -121,7 +121,7 @@ const MyTeeTimes = (props) => {
             // })
             // .then()
             // on failure, send a failure message
-            .then(refreshTeeTimes())
+            .then(setRefresh(prev => !prev))
             .catch(err => {
                 msgAlert({
                     heading: 'Error',

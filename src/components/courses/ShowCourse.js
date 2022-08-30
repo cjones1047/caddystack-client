@@ -1,7 +1,7 @@
 import './ShowCourse.css'
 
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useEffect, useLayoutEffect, useState } from "react";
 import { Link, useNavigate } from 'react-router-dom'
 
 import * as React from 'react';
@@ -110,6 +110,12 @@ const ShowCourse = (props) => {
                     console.log(err)
                 })
         }
+
+    }, [refreshThisCourse])
+
+    useLayoutEffect(() => {
+
+        setExpanded(false)
 
     }, [refreshThisCourse])
 

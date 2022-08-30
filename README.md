@@ -2,6 +2,16 @@
 
 ***
 
+### Link to deployed app:
+#### https://caddystack.herokuapp.com/
+
+***
+
+### Link to API(back-end) repo:
+#### https://github.com/cjones1047/caddystack-api
+
+***
+
 ### PROJECT CONCEPT
 Have you ever had a tee time at this spectacular, popular golf course that you couldn't make? Wouldn't it be nice to be able to sell it(especially if the course was going to charge you for not showing)?
 
@@ -13,7 +23,7 @@ There is also a 'My Tee Times' page that displays all tee times that you own tha
 
 ***
 
-### USER STORY
+### USER STORIES
 1. Unregistered user will be able to navigate to index of all courses with open bids
 2. Unregistered user will be able to sign up(register) using a username of their choosing
 3. Unregistered user will be able to click on any course on index page and view a show page of that course; which will consist of the course's name, address, phone number, photos, and a link to the course's own website
@@ -50,7 +60,7 @@ There is also a 'My Tee Times' page that displays all tee times that you own tha
 
 ***
 
-### APIs
+### 3rd Party APIs utilized:
 ##### Golf Course Finder
 ##### https://rapidapi.com/golfambit-golfambit-default/api/golf-course-finder/details
 
@@ -61,8 +71,3 @@ There is also a 'My Tee Times' page that displays all tee times that you own tha
 
 ### ERD (Entity Relationship Diagram)
 ![](readme-assets/erd.png)
-
-***
-
-##### STRETCH GOALS
-- Map embedded in search page to show heat map of golf courses per region

@@ -9,5 +9,5 @@ ReactDOM.render(
   <BrowserRouter>
     <App />
   </BrowserRouter>,
-  document.getElementById('caddystack')
+  document.getElementById('root')
 );
